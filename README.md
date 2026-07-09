@@ -25,8 +25,8 @@ Zimbabwe's Premier Technology Marketplace and Community Platform
 
 1. **Clone and setup:**
 ```bash
-git clone <repository>
-cd zimtechhub
+git clone https://github.com/David-C23155849Q/ZimTech-Hub.git
+cd ZimTech-Hub
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
