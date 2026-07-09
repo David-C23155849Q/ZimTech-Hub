@@ -1,59 +1,98 @@
 <nav
     x-data="{ mobile:false }"
-    class="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-700">
-
+    class="sticky top-0 z-50
+backdrop-blur-xl
+bg-white/80 dark:bg-slate-900/80
+border-b border-slate-200/70 dark:border-slate-700/70
+shadow-sm transition-all"
     <div class="max-w-7xl mx-auto px-6">
 
         <div class="flex h-16 items-center justify-between">
 
             <!-- Logo -->
-            <a href="{% url 'core:home' %}" class="flex items-center space-x-3">
+            <a href="{% url 'core:home' %}" class="flex items-center gap-3 group">
 
-                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white font-bold shadow-sm">
-                    Z
-                </div>
+    <div class="relative flex h-11 w-11 items-center justify-center
+        rounded-2xl
+        bg-gradient-to-br
+        from-blue-500
+        via-indigo-600
+        to-purple-600
+        shadow-lg shadow-blue-500/25
+        group-hover:scale-105 transition">
 
-                <div class="hidden sm:block">
-                    <h1 class="font-bold text-lg text-slate-900 dark:text-white">
-                        ZimTechHub
-                    </h1>
-                    <p class="text-xs text-slate-500">
-                        Zimbabwe's Developer Community
-                    </p>
-                </div>
+        <span class="text-white text-lg font-black">
+            Z
+        </span>
 
-            </a>
+        <span class="absolute -bottom-1 -right-1
+            h-3 w-3 rounded-full
+            bg-green-400 border-2 border-white dark:border-slate-900">
+        </span>
+
+    </div>
+
+    <div class="hidden sm:block">
+
+        <h1 class="font-black text-xl text-slate-900 dark:text-white">
+            ZimTechHub
+        </h1>
+
+        <p class="text-xs text-slate-500">
+            Zimbabwe's Tech Ecosystem
+        </p>
+
+    </div>
+
+</a>
 
             <!-- Search -->
-            <div class="hidden lg:flex flex-1 max-w-xl mx-10">
+            <div class="hidden xl:flex flex-1 max-w-2xl mx-8">
 
-                <form action="{% url 'core:search' %}" class="w-full">
+<form action="{% url 'core:search' %}" class="w-full">
 
-                    <div class="relative">
+<div class="relative">
 
-                        <svg class="absolute left-4 top-3.5 h-5 w-5 text-slate-400"
-                             fill="none"
-                             stroke="currentColor"
-                             viewBox="0 0 24 24">
+<i data-lucide="search"
+class="absolute left-4 top-3.5 w-5 h-5 text-slate-400">
+</i>
 
-                            <path stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0"/>
+<input
+type="search"
+name="q"
+placeholder="Search developers, projects, products..."
 
-                        </svg>
+class="w-full
+rounded-2xl
+bg-slate-100 dark:bg-slate-800
+border border-transparent
+focus:border-blue-500
+focus:ring-4
+focus:ring-blue-500/10
+py-3
+pl-12
+pr-20
+transition">
 
-                        <input
-                            type="text"
-                            name="q"
-                            placeholder="Search developers, projects, products..."
-                            class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 py-2.5 pl-11 pr-4 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+<div class="absolute right-3 top-2.5">
 
-                    </div>
+<span class="rounded-lg
+border border-slate-300
+dark:border-slate-700
+px-2 py-1
+text-xs text-slate-500">
 
-                </form>
+⌘ K
 
-            </div>
+</span>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
 
             <!-- Navigation -->
             <div class="hidden md:flex items-center space-x-2">
@@ -127,7 +166,7 @@
                             My Profile
                         </a>
 
-                        <a href="{% url 'dashboard:index' %}"
+                        <a href="{% url 'dashboard:dashboard' %}"
                            class="block px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-700">
                             Dashboard
                         </a>

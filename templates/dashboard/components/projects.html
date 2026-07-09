@@ -1,0 +1,61 @@
+<section class="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow">
+
+    <div class="flex justify-between items-center mb-5">
+
+        <h2 class="text-xl font-bold text-slate-800 dark:text-white">
+            🚀 My Projects
+        </h2>
+
+        <a href="#"
+           class="text-blue-600 hover:underline">
+            View all
+        </a>
+
+    </div>
+
+
+    <div class="grid md:grid-cols-2 gap-5">
+
+
+        {% for project in projects %}
+
+        <div class="border rounded-xl p-4 dark:border-slate-700">
+
+            <h3 class="font-semibold text-lg">
+                {{ project.title }}
+            </h3>
+
+
+            <p class="text-sm text-slate-500 mt-2">
+                {{ project.description|truncatewords:20 }}
+            </p>
+
+
+            <div class="mt-3 flex flex-wrap gap-2">
+
+                {% for tech in project.technologies.all %}
+
+                <span class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded text-xs">
+                    {{ tech.name }}
+                </span>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        {% empty %}
+
+        <p class="text-slate-500">
+            No projects yet.
+        </p>
+
+
+        {% endfor %}
+
+
+    </div>
+
+</section>

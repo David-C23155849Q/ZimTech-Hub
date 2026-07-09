@@ -1,0 +1,93 @@
+<div class="bg-white dark:bg-slate-900 rounded-3xl 
+border dark:border-slate-800 p-6">
+
+
+<div class="flex justify-between mb-6">
+
+
+<h2 class="text-xl font-bold dark:text-white">
+
+🔔 Notifications
+
+</h2>
+
+
+<span class="bg-blue-600 text-white 
+px-3 py-1 rounded-full text-sm">
+
+3
+
+</span>
+
+
+</div>
+
+
+
+
+
+<div class="space-y-5">
+
+
+{% for notification in notifications %}
+
+
+<div class="flex gap-4">
+
+
+<div class="w-3 h-3 rounded-full 
+bg-blue-600 mt-2">
+</div>
+
+
+<div>
+
+
+<h4 class="font-semibold dark:text-white">
+
+{{notification.title}}
+
+</h4>
+
+
+<p class="text-sm text-slate-500">
+
+{{notification.message}}
+
+</p>
+
+
+<span class="text-xs text-slate-400">
+
+{{notification.created_at|timesince}} ago
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+{% empty %}
+
+
+
+<p class="text-slate-500">
+
+No new notifications.
+
+</p>
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</div>

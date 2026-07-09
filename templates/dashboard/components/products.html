@@ -1,0 +1,100 @@
+<div class="bg-white dark:bg-slate-900 rounded-3xl 
+border dark:border-slate-800 overflow-hidden">
+
+
+<div class="p-6 flex justify-between border-b dark:border-slate-800">
+
+
+<div>
+
+<h2 class="text-2xl font-bold dark:text-white">
+📦 My Products
+</h2>
+
+<p class="text-slate-500">
+Your marketplace items
+</p>
+
+</div>
+
+
+<a href="#" class="text-blue-600">
+Manage
+</a>
+
+
+</div>
+
+
+
+
+
+<div class="divide-y dark:divide-slate-800">
+
+
+{% for product in products %}
+
+
+<div class="p-6 flex gap-5">
+
+
+<img src="{{product.image.url}}"
+class="w-20 h-20 rounded-2xl object-cover">
+
+
+<div class="flex-1">
+
+
+<h3 class="font-bold dark:text-white">
+
+{{product.title}}
+
+</h3>
+
+
+<p class="text-slate-500">
+
+${{product.price}}
+
+</p>
+
+
+
+<div class="flex gap-4 mt-3 text-sm">
+
+
+<span>
+🛒 {{product.sales}} sales
+</span>
+
+
+<span>
+⭐ {{product.rating}}
+</span>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+{% empty %}
+
+
+<p class="p-6 text-slate-500">
+You haven't uploaded products.
+</p>
+
+
+{% endfor %}
+
+
+</div>
+
+
+</div>

@@ -3,6 +3,7 @@ from django.conf import settings  # Required for AUTH_USER_MODEL
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 import uuid
+from apps.marketplace.models import Product
 
 # REMOVED: from django.contrib.auth import get_user_model
 # REMOVED: User = get_user_model()

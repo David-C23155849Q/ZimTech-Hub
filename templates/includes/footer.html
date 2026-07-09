@@ -1,167 +1,623 @@
-<footer class="bg-slate-900 text-slate-400 border-t border-slate-800">
+<footer class="bg-slate-950 text-slate-400 border-t border-slate-800">
 
-    <div class="max-w-7xl mx-auto px-6 py-14">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+<div class="max-w-7xl mx-auto px-6 py-16">
 
-            <!-- Brand -->
-            <div class="lg:col-span-2">
 
-                <div class="flex items-center space-x-3 mb-4">
 
-                    <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-white">
-                        Z
-                    </div>
+<!-- Newsletter CTA -->
 
-                    <div>
-                        <h3 class="text-xl font-bold text-white">
-                            ZimTechHub
-                        </h3>
-                        <p class="text-sm text-slate-500">
-                            Zimbabwe's Developer Community
-                        </p>
-                    </div>
+<!-- <div class="rounded-3xl
+bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600
+p-8 md:p-10 mb-16
+flex flex-col lg:flex-row
+items-center justify-between gap-8
+text-white">
 
-                </div>
 
-                <p class="leading-7 max-w-md">
-                    Connecting Zimbabwean developers, designers, startups, freelancers,
-                    and employers through one modern technology platform.
-                </p>
+<div>
 
-            </div>
 
-            <!-- Platform -->
-            <div>
+<div class="flex items-center gap-2 mb-3">
 
-                <h4 class="font-semibold text-white mb-5">
-                    Platform
-                </h4>
 
-                <ul class="space-y-3 text-sm">
+<i data-lucide="rocket"
+class="w-6 h-6 text-yellow-300"></i>
 
-                    <li>
-                        <a href="{% url 'products:list' %}" class="hover:text-white transition">
-                            Marketplace
-                        </a>
-                    </li>
 
-                    <li>
-                        <a href="{% url 'projects:list' %}" class="hover:text-white transition">
-                            Projects
-                        </a>
-                    </li>
+<h3 class="text-2xl font-bold">
 
-                    <li>
-                        <a href="{% url 'jobs:job_list' %}" class="hover:text-white transition">
-                            Jobs
-                        </a>
-                    </li>
+Join Zimbabwe's Tech Movement
 
-                    <li>
-                        <a href="{% url 'events:list' %}" class="hover:text-white transition">
-                            Events
-                        </a>
-                    </li>
+</h3>
 
-                </ul>
 
-            </div>
+</div>
 
-            <!-- Community -->
-            <div>
 
-                <h4 class="font-semibold text-white mb-5">
-                    Community
-                </h4>
+<p class="text-blue-100 max-w-xl">
 
-                <ul class="space-y-3 text-sm">
+Connect with developers, discover opportunities,
+share projects and grow your technology career.
 
-                    <li>
-                        <a href="{% url 'posts:feed' %}" class="hover:text-white transition">
-                            Feed
-                        </a>
-                    </li>
+</p>
 
-                    <li>
-                        <a href="{% url 'profiles:top' %}" class="hover:text-white transition">
-                            Top Developers
-                        </a>
-                    </li>
 
-                    <li>
-                        <a href="{% url 'services:list' %}" class="hover:text-white transition">
-                            Freelancers
-                        </a>
-                    </li>
+</div>
 
-                </ul>
 
-            </div>
 
-            <!-- Support -->
-            <div>
 
-                <h4 class="font-semibold text-white mb-5">
-                    Support
-                </h4>
 
-                <ul class="space-y-3 text-sm">
+<a href="{% url 'accounts:signup' %}"
 
-                    <li>
-                        <a href="{% url 'core:contact' %}" class="hover:text-white transition">
-                            Contact Us
-                        </a>
-                    </li>
+class="inline-flex items-center gap-2
+bg-white text-blue-700
+px-7 py-3 rounded-xl
+font-bold
+hover:scale-105 transition">
 
-                    <li>
-                        <a href="{% url 'core:terms' %}" class="hover:text-white transition">
-                            Terms of Service
-                        </a>
-                    </li>
 
-                    <li>
-                        <a href="{% url 'core:privacy' %}" class="hover:text-white transition">
-                            Privacy Policy
-                        </a>
-                    </li>
+Create Free Account
 
-                </ul>
 
-            </div>
+<i data-lucide="arrow-right"
+class="w-5"></i>
 
-        </div>
 
-        <!-- Bottom -->
+</a>
 
-        <div class="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
 
-            <p class="text-sm">
-                &copy; {% now "Y" %} <span class="text-white font-medium">ZimTechHub</span>. All rights reserved.
-            </p>
 
-            <div class="flex items-center space-x-6 text-sm">
+</div> -->
 
-                <a href="#" class="hover:text-white transition">
-                    Facebook
-                </a>
 
-                <a href="#" class="hover:text-white transition">
-                    X
-                </a>
 
-                <a href="#" class="hover:text-white transition">
-                    LinkedIn
-                </a>
 
-                <a href="#" class="hover:text-white transition">
-                    GitHub
-                </a>
 
-            </div>
 
-        </div>
 
-    </div>
+<!-- Main Footer -->
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
+
+
+
+
+
+
+<!-- Brand -->
+
+<div class="lg:col-span-2">
+
+
+<div class="flex items-center gap-3 mb-5">
+
+
+<div class="w-12 h-12 rounded-2xl
+bg-gradient-to-br from-blue-500 to-purple-600
+flex items-center justify-center
+text-white text-xl font-black
+shadow-lg">
+
+
+Z
+
+
+</div>
+
+
+
+<div>
+
+
+<h3 class="text-2xl font-black text-white">
+
+ZimTechHub
+
+</h3>
+
+
+<p class="text-sm text-slate-500">
+
+Zimbabwe's Technology Ecosystem
+
+</p>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<p class="leading-7 max-w-md">
+
+
+A platform connecting Zimbabwean developers,
+designers, startups, freelancers and companies
+to build the future of technology.
+
+
+</p>
+
+
+
+
+
+
+
+<div class="flex items-center gap-3 mt-6">
+
+
+<div class="flex items-center gap-2
+bg-slate-900 border border-slate-800
+px-4 py-2 rounded-xl">
+
+
+<i data-lucide="map-pin"
+class="w-4 h-4 text-blue-400"></i>
+
+
+Zimbabwe
+
+
+</div>
+
+
+
+
+<div class="flex items-center gap-2
+bg-slate-900 border border-slate-800
+px-4 py-2 rounded-xl">
+
+
+<i data-lucide="code-2"
+class="w-4 h-4 text-green-400"></i>
+
+
+Developer First
+
+
+</div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Platform -->
+
+<div>
+
+
+<h4 class="text-white font-bold mb-5 flex items-center gap-2">
+
+
+<i data-lucide="layers"
+class="w-4 h-4"></i>
+
+
+Platform
+
+
+</h4>
+
+
+
+<ul class="space-y-3 text-sm">
+
+
+<li>
+<a href="{% url 'products:list' %}"
+class="flex items-center gap-2 hover:text-white transition">
+
+<i data-lucide="shopping-bag"
+class="w-4 h-4"></i>
+
+Marketplace
+
+</a>
+</li>
+
+
+
+<li>
+<a href="{% url 'projects:list' %}"
+class="flex items-center gap-2 hover:text-white transition">
+
+<i data-lucide="folder-code"
+class="w-4 h-4"></i>
+
+Projects
+
+</a>
+</li>
+
+
+
+<li>
+<a href="{% url 'jobs:job_list' %}"
+class="flex items-center gap-2 hover:text-white transition">
+
+
+<i data-lucide="briefcase"
+class="w-4 h-4"></i>
+
+
+Jobs
+
+
+</a>
+</li>
+
+
+
+<li>
+<a href="{% url 'events:list' %}"
+class="flex items-center gap-2 hover:text-white transition">
+
+
+<i data-lucide="calendar-days"
+class="w-4 h-4"></i>
+
+
+Events
+
+
+</a>
+</li>
+
+
+
+</ul>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- Community -->
+
+<div>
+
+
+<h4 class="text-white font-bold mb-5 flex items-center gap-2">
+
+
+<i data-lucide="users"
+class="w-4 h-4"></i>
+
+
+Community
+
+
+</h4>
+
+
+
+<ul class="space-y-3 text-sm">
+
+
+<li>
+
+<a href="{% url 'posts:feed' %}"
+class="flex items-center gap-2 hover:text-white transition">
+
+
+<i data-lucide="message-circle"
+class="w-4"></i>
+
+
+Community Feed
+
+
+</a>
+
+</li>
+
+
+
+<li>
+
+<a href="{% url 'profiles:top' %}"
+class="flex items-center gap-2 hover:text-white transition">
+
+
+<i data-lucide="trophy"
+class="w-4"></i>
+
+
+Top Developers
+
+
+</a>
+
+</li>
+
+
+
+
+<li>
+
+<a href="{% url 'services:list' %}"
+class="flex items-center gap-2 hover:text-white transition">
+
+
+<i data-lucide="sparkles"
+class="w-4"></i>
+
+
+Freelancers
+
+
+</a>
+
+</li>
+
+
+</ul>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Support -->
+
+
+<div>
+
+
+<h4 class="text-white font-bold mb-5 flex items-center gap-2">
+
+
+<i data-lucide="life-buoy"
+class="w-4"></i>
+
+
+Support
+
+
+</h4>
+
+
+
+
+<ul class="space-y-3 text-sm">
+
+
+
+<li>
+
+<a href="{% url 'core:contact' %}"
+class="hover:text-white transition">
+
+Contact Us
+
+</a>
+
+</li>
+
+
+
+
+<li>
+
+<a href="{% url 'core:terms' %}"
+class="hover:text-white transition">
+
+Terms of Service
+
+</a>
+
+</li>
+
+
+
+
+<li>
+
+<a href="{% url 'core:privacy' %}"
+class="hover:text-white transition">
+
+Privacy Policy
+
+</a>
+
+</li>
+
+
+
+
+<li>
+
+<a href="#"
+class="hover:text-white transition">
+
+Help Center
+
+</a>
+
+</li>
+
+
+
+</ul>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Bottom -->
+
+<div class="mt-14 pt-8
+border-t border-slate-800
+flex flex-col md:flex-row
+justify-between items-center gap-6">
+
+
+
+
+
+<div class="text-sm text-center md:text-left">
+
+
+<p>
+
+© {% now "Y" %}
+
+<span class="text-white font-semibold">
+
+ZimTechHub
+
+</span>
+
+. All rights reserved.
+
+</p>
+
+
+
+<p class="mt-2 text-slate-500">
+
+Powered by <a href="https://github.com/David-C23155849Q/"
+class="text-blue-500 hover:underline transition">Bunny Tech</a> and <a href="https://tailwindcss.com/"
+class="text-blue-500 hover:underline transition">Tailwind CSS</a>.
+  
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Social -->
+
+
+<div class="flex items-center gap-3">
+
+
+
+<a href="#"
+class="w-10 h-10 rounded-xl
+bg-slate-900
+border border-slate-800
+flex items-center justify-center
+hover:bg-blue-600 hover:text-white transition">
+
+
+<i data-lucide="facebook"
+class="w-5"></i>
+
+
+</a>
+
+
+
+
+<a href="#"
+class="w-10 h-10 rounded-xl
+bg-slate-900
+border border-slate-800
+flex items-center justify-center
+hover:bg-black hover:text-white transition">
+
+
+𝕏
+
+
+</a>
+
+
+
+
+
+<a href="#"
+class="w-10 h-10 rounded-xl
+bg-slate-900
+border border-slate-800
+flex items-center justify-center
+hover:bg-blue-700 hover:text-white transition">
+
+
+<i data-lucide="linkedin"
+class="w-5"></i>
+
+
+</a>
+
+
+
+
+
+<a href="#"
+class="w-10 h-10 rounded-xl
+bg-slate-900
+border border-slate-800
+flex items-center justify-center
+hover:bg-gray-700 hover:text-white transition">
+
+
+<i data-lucide="github"
+class="w-5"></i>
+
+
+</a>
+
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
 
 </footer>

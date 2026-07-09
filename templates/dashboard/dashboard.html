@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard | ZimTechHub
+{% endblock %}
+
+
+{% block content %}
+
+
+<div class="min-h-screen bg-slate-50 dark:bg-slate-950">
+
+
+<div class="max-w-7xl mx-auto px-6 py-8">
+
+
+    <!-- HERO -->
+
+    {% include "dashboard/components/welcome_hero.html" %}
+
+
+
+    <!-- STATS -->
+
+    {% include "dashboard/components/stats_overview.html" %}
+
+
+
+
+
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 mt-8">
+
+
+
+        <!-- ================= MAIN CONTENT ================= -->
+
+
+        <main class="xl:col-span-8 space-y-8">
+
+
+
+            <!-- Developer Social Feed -->
+
+            {% include "dashboard/components/community_feed.html" %}
+
+
+
+            <!-- Tech News -->
+
+            {% include "dashboard/components/news_section.html" %}
+
+
+
+
+            <!-- Portfolio -->
+
+            {% include "dashboard/components/projects.html" %}
+
+
+
+
+            <!-- Marketplace -->
+
+            {% include "dashboard/components/products.html" %}
+
+
+
+
+            <!-- Orders -->
+
+            {% include "dashboard/components/orders.html" %}
+
+
+
+
+            <!-- Jobs -->
+
+            {% include "dashboard/components/saved_jobs.html" %}
+
+
+
+        </main>
+
+
+
+
+
+
+
+
+        <!-- ================= SIDEBAR ================= -->
+
+
+        <aside class="xl:col-span-4 space-y-8">
+
+
+
+            <!-- Profile -->
+
+            {% include "dashboard/components/profile_progress.html" %}
+
+
+
+
+            <!-- Notifications -->
+
+            {% include "dashboard/components/notifications.html" %}
+
+
+
+
+
+            <!-- Actions -->
+
+            {% include "dashboard/components/quick_actions.html" %}
+
+
+
+
+
+            <!-- Trending -->
+
+            {% include "dashboard/components/trending.html" %}
+
+
+
+
+
+            <!-- Messages -->
+
+            {% include "dashboard/components/messages.html" %}
+
+
+
+
+
+            <!-- Reviews -->
+
+            {% include "dashboard/components/reviews.html" %}
+
+
+
+
+
+            <!-- Community Stats -->
+
+            {% include "dashboard/components/community_activity.html" %}
+
+
+
+        </aside>
+
+
+
+    </div>
+
+
+
+</div>
+
+
+</div>
+
+
+
+{% endblock %}

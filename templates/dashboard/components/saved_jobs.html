@@ -1,0 +1,90 @@
+<div class="bg-white dark:bg-slate-900 rounded-3xl 
+border dark:border-slate-800 p-6">
+
+
+<div class="flex justify-between mb-6">
+
+
+<h2 class="text-xl font-bold dark:text-white">
+❤️ Saved Jobs
+</h2>
+
+
+<a href="#" class="text-blue-600">
+Browse Jobs
+</a>
+
+
+</div>
+
+
+
+
+
+<div class="space-y-5">
+
+
+{% for job in saved_jobs %}
+
+
+<div class="border dark:border-slate-700 
+rounded-2xl p-5">
+
+
+<h3 class="font-bold dark:text-white">
+
+{{job.title}}
+
+</h3>
+
+
+<p class="text-sm text-slate-500">
+
+{{job.company}}
+
+</p>
+
+
+
+<div class="flex justify-between mt-4">
+
+
+<span class="text-green-600 font-semibold">
+
+${{job.budget}}
+
+</span>
+
+
+
+<span class="text-sm">
+
+{{job.location}}
+
+</span>
+
+
+</div>
+
+
+</div>
+
+
+{% empty %}
+
+
+<p class="text-slate-500">
+
+No saved jobs.
+
+</p>
+
+
+{% endfor %}
+
+
+
+</div>
+
+
+</div>
