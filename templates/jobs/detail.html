@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}{{ job.title }} - ZimTechHub{% endblock %}
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold">{{ job.title }}</h1>
+    <p class="text-gray-600 dark:text-gray-400 mt-2">{{ job.company.name|default:job.posted_by.username }}</p>
+    <div class="mt-6 prose dark:prose-invert max-w-none">
+        <h3>Description</h3><p>{{ job.description }}</p>
+        <h3>Requirements</h3><p>{{ job.requirements }}</p>
+        <h3>Responsibilities</h3><p>{{ job.responsibilities }}</p>
+    </div>
+    <a href="{% url 'jobs:apply' job.slug %}" class="inline-block bg-primary text-white px-6 py-3 rounded-lg mt-6 hover:bg-blue-600">Apply Now</a>
+</div>
+{% endblock %}

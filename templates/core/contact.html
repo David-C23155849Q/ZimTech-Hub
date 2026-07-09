@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Us - ZimTechHub{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-6 py-12">
+
+    <!-- Header -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-slate-900 dark:text-white">
+            Contact Us
+        </h1>
+        <p class="mt-4 max-w-2xl mx-auto text-slate-600 dark:text-slate-400">
+            We'd love to hear from you. Whether you have a question, need technical
+            support, want to report an issue, or have suggestions for improving
+            ZimTechHub, our team is here to help.
+        </p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8">
+
+        <!-- Contact Information -->
+        <div class="lg:col-span-1">
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-6">
+
+                <h2 class="text-xl font-semibold mb-6">
+                    Get in Touch
+                </h2>
+
+                <div class="space-y-6">
+
+                    <div>
+                        <h3 class="font-medium text-slate-900 dark:text-white">
+                            Email
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-400">
+                            support@zimtechhub.co.zw
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-medium text-slate-900 dark:text-white">
+                            Phone
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-400">
+                            +263 77 123 4567
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-medium text-slate-900 dark:text-white">
+                            Office
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-400">
+                            Harare, Zimbabwe
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-medium text-slate-900 dark:text-white">
+                            Support Hours
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-400">
+                            Monday - Friday
+                            <br>
+                            8:00 AM - 5:00 PM (CAT)
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3 class="font-medium text-slate-900 dark:text-white">
+                            Response Time
+                        </h3>
+                        <p class="text-slate-600 dark:text-slate-400">
+                            We aim to respond to all enquiries within
+                            <strong>24-48 business hours.</strong>
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Contact Form -->
+        <div class="lg:col-span-2">
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-8">
+
+                <h2 class="text-xl font-semibold mb-6">
+                    Send Us a Message
+                </h2>
+
+                <form method="post">
+
+                    {% csrf_token %}
+
+                    <div class="grid md:grid-cols-2 gap-6">
+
+                        <div>
+                            <label class="block text-sm font-medium mb-2">
+                                Full Name
+                            </label>
+
+                            <input
+                                type="text"
+                                name="name"
+                                required
+                                class="w-full rounded-xl border border-slate-300 dark:border-slate-600 dark:bg-slate-900 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium mb-2">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                name="email"
+                                required
+                                class="w-full rounded-xl border border-slate-300 dark:border-slate-600 dark:bg-slate-900 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+
+                    </div>
+
+                    <div class="mt-6">
+
+                        <label class="block text-sm font-medium mb-2">
+                            Subject
+                        </label>
+
+                        <input
+                            type="text"
+                            name="subject"
+                            required
+                            class="w-full rounded-xl border border-slate-300 dark:border-slate-600 dark:bg-slate-900 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+
+                    </div>
+
+                    <div class="mt-6">
+
+                        <label class="block text-sm font-medium mb-2">
+                            Message
+                        </label>
+
+                        <textarea
+                            name="message"
+                            rows="6"
+                            required
+                            class="w-full rounded-xl border border-slate-300 dark:border-slate-600 dark:bg-slate-900 px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+
+                    </div>
+
+                    <div class="mt-8">
+
+                        <button
+                            type="submit"
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-medium transition">
+
+                            Send Message
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FAQ -->
+
+    <div class="mt-16">
+
+        <h2 class="text-2xl font-bold mb-8 text-center">
+            Frequently Asked Questions
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6">
+                <h3 class="font-semibold mb-2">
+                    How do I report a bug?
+                </h3>
+
+                <p class="text-slate-600 dark:text-slate-400">
+                    Use the contact form above and select a subject describing the issue.
+                    Include screenshots if possible.
+                </p>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6">
+                <h3 class="font-semibold mb-2">
+                    How do I advertise a job?
+                </h3>
+
+                <p class="text-slate-600 dark:text-slate-400">
+                    Employers can create an account and post jobs through the Jobs
+                    section after logging in.
+                </p>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6">
+                <h3 class="font-semibold mb-2">
+                    Can I sell software on ZimTechHub?
+                </h3>
+
+                <p class="text-slate-600 dark:text-slate-400">
+                    Yes. Developers can list desktop applications, mobile apps,
+                    templates, source code, and other digital products.
+                </p>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6">
+                <h3 class="font-semibold mb-2">
+                    Is ZimTechHub only for Zimbabwe?
+                </h3>
+
+                <p class="text-slate-600 dark:text-slate-400">
+                    While we primarily support Zimbabwe's technology ecosystem,
+                    developers, employers, and businesses from other countries are
+                    welcome to join our platform.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

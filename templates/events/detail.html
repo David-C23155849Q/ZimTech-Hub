@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}{{ event.title }} - ZimTechHub{% endblock %}
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <img src="{{ event.banner.url }}" class="w-full rounded-xl">
+    <h1 class="text-3xl font-bold mt-6">{{ event.title }}</h1>
+    <p class="text-gray-600 dark:text-gray-400 mt-2">{{ event.event_type }} | {{ event.venue }}</p>
+    <p class="mt-4">{{ event.description }}</p>
+    <div class="mt-6">
+        <p><strong>Date:</strong> {{ event.start_date|date:"F d, Y H:i" }}</p>
+        <p><strong>Location:</strong> {{ event.venue }}</p>
+        {% if event.ticket_price > 0 %}<p><strong>Price:</strong> ${{ event.ticket_price }}</p>{% endif %}
+    </div>
+</div>
+{% endblock %}

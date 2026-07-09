@@ -1,0 +1,396 @@
+{% extends 'base.html' %}
+
+{% block title %}Community Feed - ZimTechHub{% endblock %}
+
+
+{% block content %}
+
+<div class="max-w-3xl mx-auto py-10">
+
+
+    <!-- Header -->
+
+    <div class="flex items-center justify-between mb-8">
+
+        <div>
+
+            <h1 class="text-3xl font-bold text-slate-900 dark:text-white">
+                Community Feed
+            </h1>
+
+            <p class="text-slate-500 dark:text-slate-400 mt-1">
+                Discover what Zimbabwe's tech community is building.
+            </p>
+
+        </div>
+
+
+        {% if user.is_authenticated %}
+
+        <a href="{% url 'posts:create' %}"
+           class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl font-medium">
+
+            + Create Post
+
+        </a>
+
+        {% endif %}
+
+
+    </div>
+
+
+
+
+
+    <div class="space-y-6">
+
+
+    {% for post in posts %}
+
+
+
+    <article class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+
+
+        <!-- User -->
+
+        <div class="p-6 flex items-center gap-4">
+
+
+            <img
+            src="{{ post.author.profile.avatar.url|default:'/static/images/default-avatar.png' }}"
+            class="w-12 h-12 rounded-full object-cover">
+
+
+            <div>
+
+                <h3 class="font-semibold text-slate-900 dark:text-white">
+
+                    {{ post.author.username }}
+
+                </h3>
+
+
+                <p class="text-sm text-slate-500">
+
+                    {{ post.created_at|timesince }} ago
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <!-- Content -->
+
+        <div class="px-6 pb-6">
+
+
+            {% if post.title %}
+
+            <h2 class="text-xl font-bold mb-3">
+
+                {{ post.title }}
+
+            </h2>
+
+            {% endif %}
+
+
+
+            <p class="text-slate-700 dark:text-slate-300 whitespace-pre-line">
+
+                {{ post.content }}
+
+            </p>
+
+
+
+
+
+            <!-- Images -->
+
+            {% if post.post_type == "image" %}
+
+<div class="grid grid-cols-2 gap-3 mt-5">
+
+{% for image in post.images.all %}
+
+<img
+src="{{ image.image.url }}"
+class="rounded-xl w-full h-52 object-cover">
+
+{% empty %}
+
+<p class="text-gray-500">
+No images uploaded
+</p>
+
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+
+
+
+
+
+
+            <!-- Video -->
+
+            {% if post.post_type == "video" and post.video %}
+
+            <video controls
+                   class="mt-5 rounded-xl w-full">
+
+                <source src="{{ post.video.url }}">
+
+            </video>
+
+            {% endif %}
+
+
+
+
+
+
+
+
+            <!-- Code -->
+
+            {% if post.post_type == "code" %}
+
+            <div class="mt-5 rounded-xl bg-slate-900 overflow-hidden">
+
+
+                <div class="px-4 py-2 bg-slate-700 text-white text-sm">
+
+                    {{ post.language }}
+
+                </div>
+
+
+                <pre class="p-5 text-green-300 overflow-x-auto text-sm">
+
+{{ post.code_snippet }}
+
+                </pre>
+
+
+            </div>
+
+
+            {% endif %}
+
+
+
+
+
+
+
+
+
+            <!-- Link Preview -->
+
+            {% if post.link_url %}
+
+            <a href="{{ post.link_url }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block mt-5 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden hover:border-blue-500 transition">
+
+
+                <div class="p-5 bg-slate-50 dark:bg-slate-900">
+
+                    <div class="flex items-start gap-4">
+
+
+                        <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center">
+
+                            🔗
+
+                        </div>
+
+
+                        <div class="flex-1">
+
+
+                            <h3 class="font-bold text-lg text-slate-900 dark:text-white">
+
+                                {% if post.link_title %}
+                                    {{ post.link_title }}
+                                {% else %}
+                                    {{ post.link_url }}
+                                {% endif %}
+
+                            </h3>
+
+
+                            {% if post.link_description %}
+
+                            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
+
+                                {{ post.link_description }}
+
+                            </p>
+
+                            {% endif %}
+
+
+                            <p class="mt-3 text-sm text-blue-600 break-all">
+
+                                {{ post.link_url }}
+
+                            </p>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </a>
+
+            {% endif %}
+
+
+
+
+
+
+
+
+
+            <!-- Poll -->
+
+
+            {% if post.post_type == "poll" %}
+
+            <div class="mt-5 space-y-3">
+
+
+                {% for option in post.poll_options.all %}
+
+                <button
+                class="w-full text-left border rounded-xl px-4 py-3 hover:bg-blue-50 dark:hover:bg-slate-700">
+
+
+                    {{ option.text }}
+
+                    <span class="float-right text-sm text-gray-500">
+
+                        {{ option.votes }}
+
+                    </span>
+
+
+                </button>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+            {% endif %}
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+        <!-- Actions -->
+
+
+        <div class="border-t border-slate-200 dark:border-slate-700 px-6 py-4 flex justify-between text-sm text-slate-500">
+
+
+            <button class="hover:text-blue-600">
+
+                ❤️ {{ post.likes_count }}
+
+            </button>
+
+
+            <button class="hover:text-blue-600">
+
+                💬 {{ post.comments_count }}
+
+            </button>
+
+
+            <button class="hover:text-blue-600">
+
+                🔗 {{ post.shares_count }}
+
+            </button>
+
+
+            <button class="hover:text-blue-600">
+
+                🔖 Save
+
+            </button>
+
+
+        </div>
+
+
+
+    </article>
+
+
+
+
+
+    {% empty %}
+
+
+    <div class="text-center py-16">
+
+
+        <h3 class="text-xl font-semibold">
+            No posts yet
+        </h3>
+
+
+        <p class="text-gray-500 mt-2">
+            Be the first person to share something.
+        </p>
+
+
+    </div>
+
+
+    {% endfor %}
+
+
+
+    </div>
+
+
+
+</div>
+
+
+{% endblock %}

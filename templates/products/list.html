@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Marketplace - ZimTechHub{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Digital Marketplace</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {% for product in products %}
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
+            <img src="{{ product.thumbnail.url }}" alt="{{ product.title }}" class="w-full h-48 object-cover">
+            <div class="p-4">
+                <h3 class="font-semibold"><a href="{% url 'products:detail' product.slug %}" class="hover:text-primary">{{ product.title }}</a></h3>
+                <p class="text-sm text-gray-500 mt-1">by {{ product.seller.username }}</p>
+                <div class="flex justify-between items-center mt-3">
+                    <span class="text-primary font-bold">${{ product.price }}</span>
+                    <span class="text-sm text-gray-500">{{ product.sales_count }} sales</span>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full text-center text-gray-500 py-12">No products available</div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

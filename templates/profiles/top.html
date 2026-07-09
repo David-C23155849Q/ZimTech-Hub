@@ -1,0 +1,47 @@
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block title %}Top Developers - ZimTechHub{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-12">
+    <div class="mb-10 text-center">
+        <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white">Top Rated Developers</h1>
+        <p class="text-gray-600 dark:text-gray-400 mt-2">The most active contributors on ZimTechHub.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {% for profile in profiles %}
+        <div class="group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <img src="{% if profile.avatar %}{{ profile.avatar.url }}{% else %}{% static 'images/default.png' %}{% endif %}" 
+                         class="w-16 h-16 rounded-full object-cover border-2 border-blue-50">
+                    <span class="absolute -top-1 -left-1 bg-yellow-400 text-xs font-bold px-2 py-0.5 rounded-full shadow-sm">
+                        #{{ forloop.counter }}
+                    </span>
+                </div>
+                
+                <div>
+                    <h3 class="font-bold text-lg text-gray-900 dark:text-white">
+                        <a href="{% url 'profiles:detail' profile.user.username %}" class="hover:text-blue-600 transition">
+                            {{ profile.user.get_full_name|default:profile.user.username }}
+                        </a>
+                    </h3>
+                    <p class="text-sm text-gray-500 font-medium">@{{ profile.user.username }}</p>
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-between items-center bg-gray-50 dark:bg-gray-700/50 p-3 rounded-lg">
+                <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Reputation</span>
+                <span class="text-lg font-extrabold text-blue-600 dark:text-blue-400">{{ profile.reputation_score }}</span>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-full py-20 text-center text-gray-500 italic">
+            No developers found at the moment.
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

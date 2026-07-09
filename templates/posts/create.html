@@ -1,0 +1,389 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Create Post - ZimTechHub{% endblock %}
+
+{% block content %}
+
+
+
+{% block extra_js %}
+<script>
+function postCreator(){
+    return {
+        type: "text",
+        images: [],
+
+        previewImages(event){
+            this.images = [];
+
+            [...event.target.files].forEach(file=>{
+                this.images.push(URL.createObjectURL(file));
+            });
+        }
+    }
+}
+</script>
+{% endblock %}
+
+<div class="max-w-3xl mx-auto py-10"
+     x-data="{
+        type: '{{ form.post_type.value|default:'text' }}',
+        images: []
+     }">
+
+    <!-- Header -->
+    <div class="mb-8">
+
+        <h1 class="text-3xl font-bold text-slate-900 dark:text-white">
+            Create a Post
+        </h1>
+
+        <p class="mt-2 text-slate-600 dark:text-slate-400">
+            Share knowledge, projects, ideas, and updates with Zimbabwe's tech community.
+        </p>
+
+    </div>
+
+
+    <!-- Composer -->
+
+    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
+
+
+        <form method="post"
+              enctype="multipart/form-data"
+              class="p-8 space-y-6">
+
+
+            {% csrf_token %}
+
+
+            <!-- Post Type -->
+
+            <div>
+
+                <label class="block mb-2 text-sm font-semibold">
+                    Post Type
+                </label>
+
+
+                <select
+                    name="post_type"
+                    x-model="type"
+                    class="w-full rounded-xl border px-4 py-3 dark:bg-slate-900">
+
+                    <option value="text">
+                        Text
+                    </option>
+
+                    <option value="image">
+                        Image
+                    </option>
+
+                    <option value="video">
+                        Video
+                    </option>
+
+                    <option value="code">
+                        Code
+                    </option>
+
+                    <option value="link">
+                        Link
+                    </option>
+
+                    <option value="poll">
+                        Poll
+                    </option>
+
+                </select>
+
+            </div>
+
+
+
+            <!-- Title -->
+
+            <div>
+
+                <label class="block mb-2 text-sm font-semibold">
+                    Title (optional)
+                </label>
+
+
+                {{ form.title }}
+
+            </div>
+
+
+
+            <!-- Content -->
+
+            <div>
+
+                <label class="block mb-2 text-sm font-semibold">
+                    Content
+                </label>
+
+
+                {{ form.content }}
+
+            </div>
+
+
+
+            <!-- OPTIONAL LINK -->
+
+            <div>
+
+                <label class="block mb-2 text-sm font-semibold">
+                    Attach Link (optional)
+                </label>
+
+
+                {{ form.link_url }}
+
+
+                <p class="text-sm text-gray-500 mt-2">
+                    Add a reference, GitHub repository, article, demo, or external resource.
+                </p>
+
+
+            </div>
+
+
+
+            <!-- IMAGE -->
+
+            <div x-show="type === 'image'"
+                 x-transition>
+
+
+                <label class="block mb-2 font-semibold">
+                    Upload Images
+                </label>
+
+
+                <input
+                    type="file"
+                    name="images"
+                    multiple
+                    accept="image/*"
+                    @change="
+                    images=[];
+                    [...$event.target.files].forEach(file=>{
+                        images.push(URL.createObjectURL(file))
+                    })"
+                    class="w-full">
+
+
+                <div class="grid grid-cols-3 gap-3 mt-4">
+
+                    <template x-for="img in images">
+
+                        <img
+                            :src="img"
+                            class="rounded-xl h-24 w-full object-cover">
+
+                    </template>
+
+                </div>
+
+
+            </div>
+
+
+
+
+            <!-- VIDEO -->
+
+            <div x-show="type === 'video'"
+                 x-transition>
+
+
+                <label class="block mb-2 font-semibold">
+                    Upload Video
+                </label>
+
+
+                {{ form.video }}
+
+
+            </div>
+
+
+
+
+
+            <!-- CODE -->
+
+            <div x-show="type === 'code'"
+                 x-transition
+                 class="space-y-4">
+
+
+                <div>
+
+                    <label class="block mb-2 font-semibold">
+                        Programming Language
+                    </label>
+
+
+                    {{ form.language }}
+
+                </div>
+
+
+
+                <div>
+
+                    <label class="block mb-2 font-semibold">
+                        Code
+                    </label>
+
+
+                    {{ form.code_snippet }}
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <!-- commented out link-->
+
+            <!-- <div x-show="type === 'link'"
+                 x-transition
+                 class="space-y-4">
+
+
+                {{ form.link_url }}
+
+                {{ form.link_title }}
+
+                {{ form.link_description }}
+
+                {{ form.link_image }}
+
+
+            </div>
+ -->
+
+
+
+
+
+            <!-- POLL -->
+
+            <div x-show="type === 'poll'"
+                 x-transition>
+
+
+                <label class="block mb-3 font-semibold">
+                    Poll Options
+                </label>
+
+
+                <div class="space-y-3">
+
+
+                    <input
+                    name="poll_options"
+                    placeholder="Option 1"
+                    class="w-full rounded-xl border px-4 py-3">
+
+
+                    <input
+                    name="poll_options"
+                    placeholder="Option 2"
+                    class="w-full rounded-xl border px-4 py-3">
+
+
+                    <input
+                    name="poll_options"
+                    placeholder="Option 3"
+                    class="w-full rounded-xl border px-4 py-3">
+
+
+                    <input
+                    name="poll_options"
+                    placeholder="Option 4"
+                    class="w-full rounded-xl border px-4 py-3">
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <!-- Buttons -->
+
+
+            <div class="flex justify-end gap-3 pt-6 border-t">
+
+
+                <a href="{% url 'posts:feed' %}"
+                   class="px-5 py-3 rounded-xl border hover:bg-slate-100 dark:hover:bg-slate-700">
+
+                    Cancel
+
+                </a>
+
+
+
+                <button
+                    type="submit"
+                    class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold">
+
+                    Publish Post
+
+                </button>
+
+
+            </div>
+
+
+
+        </form>
+
+
+    </div>
+
+
+
+
+    <!-- Tips -->
+
+    <div class="mt-6 bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-5">
+
+        <h3 class="font-semibold text-blue-700 dark:text-blue-300">
+            Community Guidelines
+        </h3>
+
+
+        <ul class="mt-3 text-sm space-y-2 text-slate-600 dark:text-slate-400">
+
+            <li>✓ Share useful technical knowledge.</li>
+
+            <li>✓ Showcase your projects and achievements.</li>
+
+            <li>✓ Ask questions and help other developers.</li>
+
+            <li>✓ Keep discussions professional.</li>
+
+        </ul>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

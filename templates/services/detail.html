@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}{{ service.title }} - ZimTechHub{% endblock %}
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold">{{ service.title }}</h1>
+    <p class="text-gray-600 dark:text-gray-400 mt-2">by {{ service.freelancer.username }}</p>
+    <div class="mt-6">{{ service.description }}</div>
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-6 mt-8">
+        <div class="text-3xl font-bold text-primary">${{ service.price }}</div>
+        <p class="text-gray-500 mt-2">{{ service.delivery_time }} days delivery | {{ service.revisions }} revisions</p>
+        <button class="w-full bg-primary text-white py-3 rounded-lg mt-4 hover:bg-blue-600">Order Now</button>
+    </div>
+</div>
+{% endblock %}

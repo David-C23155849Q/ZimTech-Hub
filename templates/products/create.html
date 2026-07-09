@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Create Product - ZimTechHub{% endblock %}
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-6">Sell Your Product</h1>
+    <form method="post" enctype="multipart/form-data" class="bg-white dark:bg-gray-800 rounded-xl shadow p-6 space-y-4">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="bg-primary text-white px-6 py-2 rounded-lg">Create Product</button>
+    </form>
+</div>
+{% endblock %}

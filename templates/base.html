@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" class="{% if request.COOKIES.theme == 'dark' %}dark{% endif %}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}ZimTechHub{% endblock %}</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#2563EB",
+                        secondary: "#7C3AED",
+                        accent: "#059669",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            font-family:'Inter',sans-serif;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+        }
+
+        *{
+            transition:
+                background-color .2s ease,
+                border-color .2s ease,
+                color .2s ease;
+        }
+
+        ::selection{
+            background:#2563EB;
+            color:white;
+        }
+
+        ::-webkit-scrollbar{
+            width:10px;
+        }
+
+        ::-webkit-scrollbar-track{
+            background:#f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb{
+            background:#94a3b8;
+            border-radius:10px;
+        }
+
+        .dark ::-webkit-scrollbar-track{
+            background:#0f172a;
+        }
+
+        .dark ::-webkit-scrollbar-thumb{
+            background:#475569;
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body class="bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
+
+    <!-- Navbar -->
+    {% include 'includes/navbar.html' %}
+
+    <!-- Main -->
+    <main class="min-h-screen">
+
+        <!-- Flash Messages -->
+        {% if messages %}
+        <div class="max-w-6xl mx-auto px-6 pt-6 space-y-3">
+
+            {% for message in messages %}
+
+            <div
+                x-data="{show:true}"
+                x-show="show"
+                x-transition
+                class="flex items-start justify-between rounded-xl border px-5 py-4 shadow-sm
+
+                {% if message.tags == 'success' %}
+                    bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-700 dark:text-green-300
+
+                {% elif message.tags == 'error' %}
+                    bg-red-50 border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-700 dark:text-red-300
+
+                {% elif message.tags == 'warning' %}
+                    bg-yellow-50 border-yellow-200 text-yellow-800 dark:bg-yellow-900/20 dark:border-yellow-700 dark:text-yellow-300
+
+                {% else %}
+                    bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-900/20 dark:border-blue-700 dark:text-blue-300
+                {% endif %}
+                ">
+
+                <div class="flex-1">
+                    {{ message }}
+                </div>
+
+                <button
+                    @click="show=false"
+                    class="ml-4 text-xl leading-none hover:opacity-60">
+
+                    &times;
+
+                </button>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+        {% endif %}
+
+        <!-- Content -->
+        <div class="max-w-7xl mx-auto px-6 py-8">
+
+            {% block content %}{% endblock %}
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    {% include 'includes/footer.html' %}
+
+    {% block extra_js %}{% endblock %}
+
+</body>
+</html>

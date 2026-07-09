@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load widget_tweaks static %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto px-4 py-8">
+
+    <!-- Page Title -->
+    <div class="mb-6">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white">
+            Edit Profile
+        </h1>
+        <p class="text-gray-500 dark:text-gray-400 mt-1">
+            Update your profile information below.
+        </p>
+    </div>
+
+    <form method="post"
+          enctype="multipart/form-data"
+          class="bg-white dark:bg-gray-800 shadow rounded-xl p-6 space-y-8">
+
+        {% csrf_token %}
+
+        <!-- Profile Picture -->
+        <div>
+            <h2 class="text-lg font-semibold mb-4">Profile Picture</h2>
+
+            <div class="flex items-center gap-5">
+
+                {% if user.profile.avatar %}
+                    <img src="{{ user.profile.avatar.url }}"
+                         class="w-20 h-20 rounded-full object-cover border">
+                {% else %}
+                    <img src="{% static 'images/default.png' %}"
+                         class="w-20 h-20 rounded-full object-cover border">
+                {% endif %}
+
+                <div>
+                    {{ form.avatar|add_class:"block w-full text-sm" }}
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Basic Information -->
+        <div>
+            <h2 class="text-lg font-semibold mb-4">Basic Information</h2>
+
+            <div class="space-y-4">
+
+                <div>
+                    <label class="block mb-1 font-medium">Headline</label>
+                    {{ form.headline|add_class:"w-full rounded-lg border-gray-300" }}
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+
+                    <div>
+                        <label class="block mb-1 font-medium">Country</label>
+                        {{ form.country|add_class:"w-full rounded-lg border-gray-300" }}
+                    </div>
+
+                    <div>
+                        <label class="block mb-1 font-medium">City</label>
+                        {{ form.city|add_class:"w-full rounded-lg border-gray-300" }}
+                    </div>
+
+                </div>
+
+                <div>
+                    <label class="block mb-1 font-medium">Bio</label>
+                    {{ form.bio|add_class:"w-full rounded-lg border-gray-300" }}
+                </div>
+
+                <div>
+                    <label class="block mb-1 font-medium">Cover Image</label>
+                    {{ form.cover_image|add_class:"block w-full text-sm" }}
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Professional -->
+        <div>
+            <h2 class="text-lg font-semibold mb-4">Professional</h2>
+
+            <div class="grid md:grid-cols-2 gap-4">
+
+                <div>
+                    <label class="block mb-1 font-medium">Skills</label>
+                    {{ form.skills|add_class:"w-full rounded-lg border-gray-300" }}
+                </div>
+
+                <div>
+                    <label class="block mb-1 font-medium">Programming Languages</label>
+                    {{ form.programming_languages|add_class:"w-full rounded-lg border-gray-300" }}
+                </div>
+
+                <div>
+                    <label class="block mb-1 font-medium">Frameworks</label>
+                    {{ form.frameworks|add_class:"w-full rounded-lg border-gray-300" }}
+                </div>
+
+                <div>
+                    <label class="block mb-1 font-medium">Experience Level</label>
+                    {{ form.experience_level|add_class:"w-full rounded-lg border-gray-300" }}
+                </div>
+
+                <div class="md:col-span-2">
+                    <label class="block mb-1 font-medium">Availability</label>
+                    {{ form.availability|add_class:"w-full rounded-lg border-gray-300" }}
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Social Links -->
+        <div>
+            <h2 class="text-lg font-semibold mb-4">Social Links</h2>
+
+            <div class="space-y-4">
+
+                <div>
+                    <label class="block mb-1 font-medium">GitHub</label>
+                    {{ form.github_url|add_class:"w-full rounded-lg border-gray-300" }}
+                </div>
+
+                <div>
+                    <label class="block mb-1 font-medium">LinkedIn</label>
+                    {{ form.linkedin_url|add_class:"w-full rounded-lg border-gray-300" }}
+                </div>
+
+                <div>
+                    <label class="block mb-1 font-medium">Portfolio</label>
+                    {{ form.portfolio_url|add_class:"w-full rounded-lg border-gray-300" }}
+                </div>
+
+                <div>
+                    <label class="block mb-1 font-medium">Website</label>
+                    {{ form.website_url|add_class:"w-full rounded-lg border-gray-300" }}
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Submit -->
+        <div class="pt-2">
+            <button type="submit"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition">
+                Save Changes
+            </button>
+        </div>
+
+    </form>
+
+</div>
+{% endblock %}

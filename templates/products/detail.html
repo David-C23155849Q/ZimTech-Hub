@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}{{ product.title }} - ZimTechHub{% endblock %}
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+            <img src="{{ product.thumbnail.url }}" class="w-full rounded-xl">
+            <h1 class="text-3xl font-bold mt-6">{{ product.title }}</h1>
+            <p class="text-gray-600 dark:text-gray-400 mt-4">{{ product.description }}</p>
+        </div>
+        <div>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-6 sticky top-24">
+                <div class="text-3xl font-bold text-primary">${{ product.price }}</div>
+                {% if product.discount_percentage > 0 %}
+                <div class="text-lg text-gray-500 line-through">${{ product.original_price }}</div>
+                <div class="text-green-600">{{ product.discount_percentage }}% off</div>
+                {% endif %}
+                <button class="w-full bg-primary text-white py-3 rounded-lg mt-4 hover:bg-blue-600">Buy Now</button>
+                <div class="mt-4 text-sm text-gray-500">
+                    <p>Sales: {{ product.sales_count }}</p>
+                    <p>Rating: {{ product.average_rating }}/5 ({{ product.review_count }} reviews)</p>
+                    <p>Version: {{ product.version }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
