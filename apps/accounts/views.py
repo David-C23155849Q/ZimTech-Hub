@@ -136,12 +136,20 @@ class CustomLogoutView(LoginRequiredMixin, BaseLogoutView):
     """
     Custom logout view that updates online status.
     """
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated:
-            request.user.is_online = False
-            request.user.save(update_fields=['is_online'])
-        return super().dispatch(request, *args, **kwargs)
 
+    next_page = "core:home"
+
+    def dispatch(self, request, *args, **kwargs):
+
+        if request.user.is_authenticated:
+
+            request.user.is_online = False
+
+            request.user.save(
+                update_fields=["is_online"]
+            )
+
+        return super().dispatch(request, *args, **kwargs)
 
 class EmailVerificationView(View):
     """
