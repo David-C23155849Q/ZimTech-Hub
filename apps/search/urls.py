@@ -1,10 +1,8 @@
-"""
-Search API URL patterns.
-"""
 from django.urls import path
+from .views import SearchView
 
-app_name = "search_api"
+app_name = "search"
 
 urlpatterns = [
-    # Add API endpoints here
+    path("", SearchView.as_view(), name="index"),
 ]

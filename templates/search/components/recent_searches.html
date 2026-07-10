@@ -1,0 +1,63 @@
+<div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm p-6">
+
+    <!-- Header -->
+    <div class="flex items-center gap-3 mb-6">
+        <div class="w-11 h-11 rounded-2xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+            <i class="fa-solid fa-clock-rotate-left text-blue-600 dark:text-blue-400 text-lg"></i>
+        </div>
+
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white">
+                Recent Searches
+            </h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400">
+                Your latest search history
+            </p>
+        </div>
+    </div>
+
+    <!-- Recent Searches -->
+    <div class="space-y-2">
+
+        {% for item in recent_searches %}
+
+        <a href="?q={{ item.query }}"
+           class="group flex items-center justify-between p-3 rounded-2xl
+                  hover:bg-slate-50 dark:hover:bg-slate-800
+                  transition-all duration-200">
+
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                    <i class="fa-solid fa-magnifying-glass text-slate-500 dark:text-slate-400 text-sm"></i>
+                </div>
+
+                <span class="font-medium text-slate-700 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                    {{ item.query }}
+                </span>
+            </div>
+
+            <i class="fa-solid fa-arrow-up-right-from-square text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity"></i>
+
+        </a>
+
+        {% empty %}
+
+        <div class="py-10 text-center">
+            <div class="mx-auto w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4">
+                <i class="fa-solid fa-clock-rotate-left text-slate-400 text-xl"></i>
+            </div>
+
+            <h3 class="font-semibold text-slate-700 dark:text-slate-300">
+                No Recent Searches
+            </h3>
+
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                Your recent searches will appear here once you start searching.
+            </p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>

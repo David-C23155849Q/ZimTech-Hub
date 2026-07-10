@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}
+Search | ZimTechHub
+{% endblock %}
+
+{% block content %}
+
+<div class="max-w-7xl mx-auto px-6 py-10">
+
+    <!-- Hero -->
+    <div class="mb-10">
+        <div class="flex items-center gap-4">
+
+            <div class="w-16 h-16 rounded-3xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center shadow-sm">
+                <i class="fa-solid fa-magnifying-glass text-2xl text-blue-600 dark:text-blue-400"></i>
+            </div>
+
+            <div>
+                <h1 class="text-4xl font-bold text-slate-900 dark:text-white">
+                    Search ZimTechHub
+                </h1>
+
+                <p class="mt-2 text-lg text-slate-500 dark:text-slate-400 max-w-2xl">
+                    Explore projects, developers, technologies, discussions, and resources from Zimbabwe's growing tech community.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Search -->
+    {% include "search/components/search_bar.html" %}
+
+    <!-- Quick Stats -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mt-8">
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                    <i class="fa-solid fa-clock-rotate-left text-blue-600"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-slate-500">Recent</p>
+                    <h3 class="font-bold">{{ recent_searches|length }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
+                    <i class="fa-solid fa-fire text-orange-600"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-slate-500">Trending</p>
+                    <h3 class="font-bold">{{ trending_searches|length }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+                    <i class="fa-solid fa-lightbulb text-green-600"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-slate-500">Suggestions</p>
+                    <h3 class="font-bold">{{ suggestions|length }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+                    <i class="fa-solid fa-microchip text-indigo-600"></i>
+                </div>
+                <div>
+                    <p class="text-sm text-slate-500">Technologies</p>
+                    <h3 class="font-bold">{{ popular_tags|length }}</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Dashboard Cards -->
+    <div class="grid lg:grid-cols-3 gap-8 mt-10">
+
+        {% include "search/components/recent_searches.html" %}
+
+        {% include "search/components/trending_searches.html" %}
+
+        {% include "search/components/suggestions.html" %}
+
+    </div>
+
+    <!-- Technology Analytics -->
+    <div class="mt-10">
+        {% include "search/components/technology_analytics.html" %}
+    </div>
+
+</div>
+
+{% endblock %}

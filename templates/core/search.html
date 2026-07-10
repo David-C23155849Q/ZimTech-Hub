@@ -1,10 +1,186 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}Search - ZimTechHub{% endblock %}
+{% block title %}Search{% endblock %}
 
 {% block content %}
-<div class="max-w-7xl mx-auto px-4 py-16">
-    <h1 class="text-3xl font-bold mb-6">Search</h1>
-    <p class="text-gray-600 dark:text-gray-400">This page is under construction.</p>
+
+<div class="max-w-7xl mx-auto px-6 py-10">
+
+    <h1 class="text-4xl font-bold mb-8">
+        Search ZimTechHub
+    </h1>
+
+    <!-- Search Box -->
+
+    <form method="get"
+          class="mb-10">
+
+        <div class="relative">
+
+            <input
+                type="text"
+                name="q"
+                placeholder="Search developers, posts, jobs, products..."
+                class="w-full rounded-2xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-6 py-4 pl-14 text-lg focus:ring-2 focus:ring-blue-500">
+
+            <i data-lucide="search"
+               class="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500"></i>
+
+        </div>
+
+    </form>
+
+
+    <div class="grid lg:grid-cols-3 gap-8">
+
+        <!-- Recent Searches -->
+
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border p-6">
+
+            <h2 class="text-xl font-bold mb-5">
+
+                🔍 Recent Searches
+
+            </h2>
+
+            {% for item in recent_searches %}
+
+                <div class="py-2 border-b">
+
+                    {{ item.query }}
+
+                </div>
+
+            {% empty %}
+
+                <p class="text-slate-500">
+
+                    No recent searches.
+
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-- Trending -->
+
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border p-6">
+
+            <h2 class="text-xl font-bold mb-5">
+
+                🔥 Trending
+
+            </h2>
+
+            {% for trend in trending_searches %}
+
+                <div class="flex justify-between py-2 border-b">
+
+                    <span>
+
+                        {{ trend.query }}
+
+                    </span>
+
+                    <span class="text-blue-600">
+
+                        {{ trend.count }}
+
+                    </span>
+
+                </div>
+
+            {% empty %}
+
+                <p class="text-slate-500">
+
+                    No trending searches.
+
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-- Suggestions -->
+
+        <div class="bg-white dark:bg-slate-900 rounded-3xl border p-6">
+
+            <h2 class="text-xl font-bold mb-5">
+
+                💡 Suggestions
+
+            </h2>
+
+            <div class="flex flex-wrap gap-3">
+
+                {% for suggestion in suggestions %}
+
+                    <span class="px-4 py-2 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/30">
+
+                        {{ suggestion }}
+
+                    </span>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Popular Technologies -->
+
+    <div class="mt-10 bg-white dark:bg-slate-900 rounded-3xl border p-8">
+
+        <h2 class="text-2xl font-bold mb-6">
+
+            📊 Popular Technologies
+
+        </h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+            {% for tech in popular_tags %}
+
+            <div class="rounded-2xl border p-5">
+
+                <h3 class="font-bold">
+
+                    {{ tech.language }}
+
+                </h3>
+
+                <p class="text-slate-500 mt-2">
+
+                    {{ tech.total }} posts
+
+                </p>
+
+            </div>
+
+            {% empty %}
+
+            <p>
+
+                No analytics available.
+
+            </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
 </div>
+
 {% endblock %}

@@ -13,53 +13,18 @@ from .forms import PostForm
 
 
 class FeedView(ListView):
-
     model = Post
-
     template_name = "posts/feed.html"
-
     context_object_name = "posts"
-
     paginate_by = 20
 
-
     def get_queryset(self):
-
-        queryset = Post.objects.filter(
-            is_published=True
-        )
-
-        if self.request.user.is_authenticated:
-
-            following_ids = (
-                self.request.user
-                .following_set
-                .values_list(
-                    "following_id",
-                    flat=True
-                )
-            )
-
-            queryset = queryset.filter(
-                author_id__in=list(following_ids)
-                +
-                [self.request.user.id]
-            )
-
-
         return (
-            queryset
-            .select_related(
-                "author",
-                "author__profile"
-            )
-            .prefetch_related(
-                "images",
-                "poll_options"
-            )
+            Post.objects.filter(is_published=True)
+            .select_related("author", "author__profile")
+            .prefetch_related("images", "poll_options")
+            .order_by("-created_at")
         )
-
-
 
 class PostDetailView(DetailView):
 

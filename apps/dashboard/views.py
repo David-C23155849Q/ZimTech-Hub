@@ -103,17 +103,21 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
 
         context["recent_posts"] = (
-            Post.objects
-            .filter(
-                is_published=True
-            )
-            .select_related(
-                "author"
-            )
-            .order_by(
-                "-created_at"
-            )[:10]
-        )
+    Post.objects
+    .filter(
+        is_published=True
+    )
+    .select_related(
+        "author",
+        "author__profile"
+    )
+    .prefetch_related(
+        "images"
+    )
+    .order_by(
+        "-created_at"
+    )[:3]
+)
 
 
 

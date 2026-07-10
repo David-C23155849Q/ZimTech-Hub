@@ -1,0 +1,107 @@
+<section class="mt-24 relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 text-white p-12 lg:p-16">
+
+    <!-- Background Effects -->
+    <div class="absolute -top-20 -right-20 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl"></div>
+    <div class="absolute -bottom-20 -left-20 w-72 h-72 bg-cyan-400/20 rounded-full blur-3xl"></div>
+
+    <div class="relative z-10 max-w-5xl mx-auto text-center">
+
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-8">
+            <i class="fa-solid fa-rocket text-cyan-300"></i>
+            <span class="font-semibold">
+                Building Zimbabwe's Digital Future
+            </span>
+        </div>
+
+        <!-- Heading -->
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
+
+            The Future of
+            <span class="text-cyan-300">
+                Zimbabwean Technology
+            </span>
+
+            Starts Here.
+
+        </h2>
+
+        <!-- Description -->
+        <p class="mt-8 max-w-3xl mx-auto text-xl leading-8 text-blue-100">
+
+            From software engineering and artificial intelligence to
+            cybersecurity, cloud computing, startups, fintech, and digital
+            entrepreneurship, ZimTechHub is creating a place where Zimbabwe's
+            brightest minds can connect, innovate, and shape the future together.
+
+        </p>
+
+        <!-- Feature Highlights -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-14">
+
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mb-4">
+                    <i class="fa-solid fa-code text-2xl text-cyan-300"></i>
+                </div>
+                <h3 class="font-semibold">Develop</h3>
+                <p class="text-sm text-blue-100 mt-2">
+                    Build innovative solutions.
+                </p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mb-4">
+                    <i class="fa-solid fa-users text-2xl text-cyan-300"></i>
+                </div>
+                <h3 class="font-semibold">Collaborate</h3>
+                <p class="text-sm text-blue-100 mt-2">
+                    Connect with the community.
+                </p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mb-4">
+                    <i class="fa-solid fa-lightbulb text-2xl text-cyan-300"></i>
+                </div>
+                <h3 class="font-semibold">Innovate</h3>
+                <p class="text-sm text-blue-100 mt-2">
+                    Turn ideas into reality.
+                </p>
+            </div>
+
+            <div class="text-center">
+                <div class="w-16 h-16 mx-auto rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mb-4">
+                    <i class="fa-solid fa-globe-africa text-2xl text-cyan-300"></i>
+                </div>
+                <h3 class="font-semibold">Impact</h3>
+                <p class="text-sm text-blue-100 mt-2">
+                    Make a difference locally and globally.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- CTA -->
+        <div class="mt-14 flex flex-wrap justify-center gap-4">
+
+            <a href="{% url 'accounts:signup' %}"
+               class="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-cyan-400 text-slate-900 font-semibold hover:bg-cyan-300 transition">
+
+                <i class="fa-solid fa-user-plus"></i>
+                Join ZimTechHub
+
+            </a>
+
+            <a href="/projects"
+               class="inline-flex items-center gap-2 px-8 py-4 rounded-2xl border border-white/20 hover:bg-white/10 transition">
+
+                <i class="fa-solid fa-arrow-right"></i>
+                Explore the Community
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>

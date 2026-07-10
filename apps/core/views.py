@@ -127,3 +127,8 @@ class SearchView(ListView):
         context = super().get_context_data(**kwargs)
         context['query'] = self.request.GET.get('q', '')
         return context
+
+from django.shortcuts import render
+
+def about(request):
+    return render(request, "about/about.html")

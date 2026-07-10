@@ -103,14 +103,41 @@
             {% endif %}
 
 
+<!-- poct card size limit so it doesn't overflow and stuff -->
+            <div x-data="{ expanded: false }">
 
-            <p class="text-slate-700 dark:text-slate-300 whitespace-pre-line">
-
-                {{ post.content }}
-
+    <template x-if="!expanded">
+        <div>
+            <p class="text-slate-700 dark:text-slate-300 whitespace-pre-line break-words">
+                {{ post.content|truncatechars:350 }}
             </p>
 
+            {% if post.content|length > 350 %}
+            <button
+                @click="expanded = true"
+                class="mt-2 text-blue-600 hover:text-blue-700 font-medium">
+                See more
+            </button>
+            {% endif %}
+        </div>
+    </template>
 
+    <template x-if="expanded">
+        <div>
+            <p class="text-slate-700 dark:text-slate-300 whitespace-pre-line break-words">
+                {{ post.content }}
+            </p>
+
+            <button
+                @click="expanded = false"
+                class="mt-2 text-blue-600 hover:text-blue-700 font-medium">
+                See less
+            </button>
+        </div>
+    </template>
+
+</div>
+<!-- end of my limit card code -->
 
 
 
@@ -118,25 +145,25 @@
 
             {% if post.post_type == "image" %}
 
-<div class="grid grid-cols-2 gap-3 mt-5">
+        <div class="grid grid-cols-2 gap-3 mt-5">
 
-{% for image in post.images.all %}
+        {% for image in post.images.all %}
 
-<img
-src="{{ image.image.url }}"
-class="rounded-xl w-full h-52 object-cover">
+        <img
+        src="{{ image.image.url }}"
+        class="rounded-xl w-full h-52 object-cover">
 
-{% empty %}
+        {% empty %}
 
-<p class="text-gray-500">
-No images uploaded
-</p>
+        <p class="text-gray-500">
+        No images uploaded
+        </p>
 
-{% endfor %}
+        {% endfor %}
 
-</div>
+        </div>
 
-{% endif %}
+        {% endif %}
 
 
 
