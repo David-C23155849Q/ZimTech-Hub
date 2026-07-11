@@ -31,9 +31,16 @@ THIRD_PARTY_APPS = [
     'corsheaders',
     'django_filters',
     'channels',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
+    # Social providers
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.linkedin_oauth2',
+
     'taggit',
     'ckeditor',
     'storages',
@@ -171,6 +178,35 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+
+# ============================================================================
+# Django AllAuth
+# ============================================================================
+
+ACCOUNT_LOGIN_METHODS = {"email"}
+
+ACCOUNT_SIGNUP_FIELDS = [
+    "email*",
+    "username*",
+    "password1*",
+    "password2*",
+]
+
+ACCOUNT_EMAIL_VERIFICATION = "optional"
+ACCOUNT_UNIQUE_EMAIL = True
+
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+ACCOUNT_LOGOUT_ON_GET = False
+
+SOCIALACCOUNT_AUTO_SIGNUP = True
+SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+ACCOUNT_ADAPTER = "apps.accounts.adapters.AccountAdapter"
+SOCIALACCOUNT_ADAPTER = "apps.accounts.social_adapter.SocialAccountAdapter"
+
 
 # Django REST Framework
 REST_FRAMEWORK = {

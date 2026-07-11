@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Page Not Found - ZimTechHub{% endblock %}
+
+{% block content %}
+
+<div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-6">
+
+    <div class="max-w-lg text-center">
+
+        <!-- Error Code -->
+        <h1 class="text-9xl font-extrabold text-blue-600 dark:text-blue-400">
+            404
+        </h1>
+
+
+        <h2 class="mt-6 text-3xl font-bold text-gray-900 dark:text-white">
+            Page not found
+        </h2>
+
+
+        <p class="mt-4 text-gray-600 dark:text-gray-400">
+            Sorry, the page you are looking for doesn't exist,
+            has been moved, or you may not have permission to view it.
+        </p>
+
+
+        <!-- Actions -->
+        <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+
+            <a href="{% url 'core:home' %}"
+               class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition shadow-md">
+
+                Go Home
+
+            </a>
+
+
+            <a href="javascript:history.back()"
+               class="px-6 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 rounded-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+
+                Go Back
+
+            </a>
+
+        </div>
+
+
+        <!-- Branding -->
+        <div class="mt-12">
+
+            <p class="text-sm text-gray-500 dark:text-gray-500">
+                Lost in cyberspace?
+            </p>
+
+            <p class="mt-1 text-sm font-semibold text-blue-600 dark:text-blue-400">
+                ZimTechHub • Zimbabwe's Technology Community
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

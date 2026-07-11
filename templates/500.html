@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Server Error - ZimTechHub{% endblock %}
+
+{% block content %}
+
+<div class="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-6">
+
+    <div class="max-w-lg text-center">
+
+        <!-- Error Code -->
+        <h1 class="text-9xl font-extrabold text-red-600 dark:text-red-400">
+            500
+        </h1>
+
+
+        <h2 class="mt-6 text-3xl font-bold text-gray-900 dark:text-white">
+            Something went wrong
+        </h2>
+
+
+        <p class="mt-4 text-gray-600 dark:text-gray-400">
+            We're having trouble processing your request right now.
+            Our team has been notified and we're working on fixing it.
+        </p>
+
+
+        <!-- Actions -->
+        <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+
+            <a href="{% url 'core:home' %}"
+               class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold transition shadow-md">
+
+                Return Home
+
+            </a>
+
+
+            <a href="javascript:location.reload()"
+               class="px-6 py-3 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 rounded-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+
+                Try Again
+
+            </a>
+
+        </div>
+
+
+        <!-- Support Section -->
+        <div class="mt-12 p-5 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+
+            <h3 class="font-semibold text-gray-900 dark:text-white">
+                Need help?
+            </h3>
+
+            <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                If this problem continues, please contact ZimTechHub support.
+            </p>
+
+            <a href="mailto:support@zimtechhub.co.zw"
+               class="inline-block mt-3 text-blue-600 hover:text-blue-500 font-medium">
+                Contact Support
+            </a>
+
+        </div>
+
+
+        <!-- Branding -->
+        <div class="mt-10">
+
+            <p class="text-sm text-gray-500 dark:text-gray-500">
+                ZimTechHub
+            </p>
+
+            <p class="text-sm font-semibold text-blue-600 dark:text-blue-400">
+                Building Zimbabwe's Technology Ecosystem
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
