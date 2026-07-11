@@ -1,12 +1,401 @@
 {% extends 'base.html' %}
-{% block title %}Create Project - ZimTechHub{% endblock %}
+{% load widget_tweaks %}
+
+{% block title %}Create Post - ZimTechHub{% endblock %}
+
 {% block content %}
-<div class="max-w-2xl mx-auto px-4 py-8">
-    <h1 class="text-2xl font-bold mb-6">Share Your Project</h1>
-    <form method="post" enctype="multipart/form-data" class="bg-white dark:bg-gray-800 rounded-xl shadow p-6 space-y-4">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="bg-primary text-white px-6 py-2 rounded-lg">Create Project</button>
-    </form>
+
+<div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+
+
+<!-- Header -->
+
+<div class="mb-10">
+
+    <div class="flex items-center gap-4">
+
+        <div class="w-14 h-14 flex items-center justify-center rounded-2xl 
+                    bg-blue-100 dark:bg-blue-900/40 text-3xl">
+            ✍️
+        </div>
+
+
+        <div>
+
+            <h1 class="text-4xl font-bold text-slate-900 dark:text-white">
+                Create Post
+            </h1>
+
+            <p class="mt-1 text-slate-500 dark:text-slate-400">
+                Share ideas, code, tutorials and discoveries with Zimbabwe's developer community.
+            </p>
+
+        </div>
+
+    </div>
+
+
 </div>
+
+
+
+
+
+<div class="grid lg:grid-cols-3 gap-8">
+
+
+
+
+
+<!-- MAIN FORM -->
+
+<div class="lg:col-span-2">
+
+
+<form method="post"
+      enctype="multipart/form-data"
+      class="bg-white dark:bg-slate-800 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+
+
+{% csrf_token %}
+
+
+
+<div class="p-8 space-y-8">
+
+
+
+
+
+
+<!-- Basic -->
+
+<div>
+
+
+<div class="flex items-center gap-3 mb-5">
+
+<div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+📝
+</div>
+
+<h2 class="font-bold text-xl text-slate-900 dark:text-white">
+Post Details
+</h2>
+
+</div>
+
+
+
+
+
+<div class="space-y-5">
+
+
+
+{% for field in form %}
+
+
+{% if field.name == "title" or field.name == "content" or field.name == "post_type" %}
+
+
+<div>
+
+
+<label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
+
+{{field.label}}
+
+{% if field.field.required %}
+<span class="text-red-500">*</span>
+{% endif %}
+
+</label>
+
+
+
+{% if field.name == "content" %}
+
+{% render_field field rows="7" class="w-full rounded-2xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 px-5 py-4 focus:ring-2 focus:ring-blue-500 outline-none resize-none transition" %}
+
+
+{% else %}
+
+{% render_field field class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 px-5 py-3 focus:ring-2 focus:ring-blue-500 outline-none transition" %}
+
+
+{% endif %}
+
+
+
+{% if field.errors %}
+<p class="mt-2 text-sm text-red-500">
+{{field.errors.0}}
+</p>
+{% endif %}
+
+
+</div>
+
+
+{% endif %}
+
+
+
+{% endfor %}
+
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Advanced -->
+
+<div class="border-t border-slate-200 dark:border-slate-700 pt-8">
+
+
+<div class="flex items-center gap-3 mb-5">
+
+<div class="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
+⚙️
+</div>
+
+
+<h2 class="font-bold text-xl text-slate-900 dark:text-white">
+Content Options
+</h2>
+
+
+</div>
+
+
+
+
+<div class="space-y-6">
+
+
+{% for field in form %}
+
+
+{% if field.name != "title" and field.name != "content" and field.name != "post_type" %}
+
+
+
+<div>
+
+
+<label class="block mb-2 text-sm font-semibold text-slate-700 dark:text-slate-300">
+
+{{field.label}}
+
+</label>
+
+
+
+
+{% if field.name == "code_snippet" %}
+
+
+{% render_field field rows="10" class="w-full rounded-2xl border bg-slate-950 text-green-400 font-mono px-5 py-4 focus:ring-2 focus:ring-blue-500" %}
+
+
+
+{% elif field.name == "video" %}
+
+
+<div class="p-5 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-600">
+
+{% render_field field class="block w-full text-sm file:bg-blue-600 file:text-white file:px-5 file:py-3 file:rounded-xl cursor-pointer" %}
+
+</div>
+
+
+
+{% else %}
+
+
+{% render_field field class="w-full rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 px-5 py-3 focus:ring-2 focus:ring-blue-500 outline-none" %}
+
+
+
+{% endif %}
+
+
+
+
+
+{% if field.help_text %}
+
+<p class="text-xs text-slate-500 mt-2">
+{{field.help_text}}
+</p>
+
+{% endif %}
+
+
+
+</div>
+
+
+
+{% endif %}
+
+
+{% endfor %}
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Footer -->
+
+<div class="px-8 py-6 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-700 flex justify-end gap-3">
+
+
+<a href="{% url 'posts:feed' %}"
+class="px-6 py-3 rounded-xl border hover:bg-slate-100 dark:hover:bg-slate-700">
+
+Cancel
+
+</a>
+
+
+<button type="submit"
+class="px-8 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold shadow-lg transition">
+
+🚀 Publish Post
+
+</button>
+
+
+
+</div>
+
+
+
+</form>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- SIDE PANEL -->
+
+<div class="space-y-6">
+
+
+
+<div class="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-3xl p-6 text-white shadow-xl">
+
+
+<h3 class="font-bold text-xl mb-3">
+💡 Posting Tips
+</h3>
+
+
+<ul class="space-y-3 text-sm text-blue-100">
+
+
+<li>
+✓ Explain your idea clearly
+</li>
+
+
+<li>
+✓ Add useful hashtags
+</li>
+
+
+<li>
+✓ Share code with context
+</li>
+
+
+<li>
+✓ Engage with other developers
+</li>
+
+
+</ul>
+
+
+</div>
+
+
+
+
+
+
+<div class="bg-white dark:bg-slate-800 rounded-3xl border shadow p-6">
+
+
+<h3 class="font-bold mb-4 text-slate-900 dark:text-white">
+Supported Posts
+</h3>
+
+
+<div class="space-y-3 text-sm text-slate-600 dark:text-slate-400">
+
+
+<p>📝 Text posts</p>
+
+<p>💻 Code snippets</p>
+
+<p>🎥 Videos</p>
+
+<p>🔗 Resource links</p>
+
+<p># Developer hashtags</p>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+</div>
+
+
 {% endblock %}

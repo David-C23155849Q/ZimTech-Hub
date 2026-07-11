@@ -1,20 +1,509 @@
-{% extends 'base.html' %}
-{% block title %}{{ project.title }} - ZimTechHub{% endblock %}
+{% extends "base.html" %}
+
+{% block title %}{{ project.title }} • ZimTechHub{% endblock %}
+
+
 {% block content %}
-<div class="max-w-4xl mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold">{{ project.title }}</h1>
-    <div class="flex items-center space-x-4 mt-4 text-sm text-gray-500">
-        <span>by <a href="{% url 'profiles:detail' project.owner.username %}" class="text-primary">{{ project.owner.username }}</a></span>
-        <span>⭐ {{ project.stars }}</span>
-        <span>👁 {{ project.views }}</span>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+
+
+    <!-- Hero -->
+
+    <div class="overflow-hidden rounded-3xl shadow-xl border border-slate-200 dark:border-slate-700">
+
+        {% if project.thumbnail %}
+
+            <img src="{{ project.thumbnail.url }}"
+                 class="w-full h-[420px] object-cover">
+
+        {% else %}
+
+            <div class="h-[420px] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 flex items-center justify-center">
+
+                <span class="text-8xl font-black text-white">
+                    {{ project.title|first }}
+                </span>
+
+            </div>
+
+        {% endif %}
+
     </div>
-    <div class="mt-6 prose dark:prose-invert max-w-none">
-        {{ project.content|linebreaks }}
+
+
+
+
+
+    <div class="grid lg:grid-cols-3 gap-8 mt-10">
+
+
+
+        <!-- MAIN -->
+
+        <main class="lg:col-span-2 space-y-8">
+
+
+
+            <!-- Title -->
+
+            <section>
+
+
+                <div class="flex flex-wrap gap-3 mb-5">
+
+
+                    <span class="px-4 py-1 rounded-full text-sm font-semibold bg-emerald-100 text-emerald-700">
+
+                        {{ project.get_status_display }}
+
+                    </span>
+
+
+                </div>
+
+
+
+                <h1 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white">
+
+                    {{ project.title }}
+
+                </h1>
+
+
+
+                <p class="mt-5 text-lg leading-relaxed text-slate-600 dark:text-slate-400">
+
+                    {{ project.description }}
+
+                </p>
+
+
+            </section>
+
+
+
+
+
+
+
+
+            <!-- Stats -->
+
+
+            <section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 text-center shadow border">
+
+                    <div class="text-3xl font-bold">
+                        ⭐ {{ project.stars }}
+                    </div>
+
+                    <p class="text-sm text-slate-500 mt-2">
+                        Stars
+                    </p>
+
+                </div>
+
+
+
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 text-center shadow border">
+
+                    <div class="text-3xl font-bold">
+                        👁 {{ project.views }}
+                    </div>
+
+                    <p class="text-sm text-slate-500 mt-2">
+                        Views
+                    </p>
+
+                </div>
+
+
+
+
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 text-center shadow border">
+
+                    <div class="text-3xl font-bold">
+                        ❤️ {{ project.likes }}
+                    </div>
+
+                    <p class="text-sm text-slate-500 mt-2">
+                        Likes
+                    </p>
+
+                </div>
+
+
+
+
+                <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 text-center shadow border">
+
+                    <div class="text-3xl font-bold">
+                        🔖 {{ project.bookmarks }}
+                    </div>
+
+                    <p class="text-sm text-slate-500 mt-2">
+                        Saves
+                    </p>
+
+                </div>
+
+
+            </section>
+
+
+
+
+
+
+
+
+            <!-- About -->
+
+            <section class="bg-white dark:bg-slate-800 rounded-3xl shadow border p-8">
+
+
+                <h2 class="text-2xl font-bold mb-5">
+                    📖 About This Project
+                </h2>
+
+
+
+                <div class="prose dark:prose-invert max-w-none">
+
+                    {{ project.content|linebreaks }}
+
+                </div>
+
+
+            </section>
+
+
+
+
+
+
+
+
+            <!-- Technologies -->
+
+            {% if project.technologies %}
+
+            <section class="bg-white dark:bg-slate-800 rounded-3xl shadow border p-6">
+
+
+                <h2 class="text-xl font-bold mb-5">
+                    🛠 Technologies
+                </h2>
+
+
+
+                <div class="flex flex-wrap gap-3">
+
+
+                    {% if project.technologies.items %}
+
+
+                        {% for tech,value in project.technologies.items %}
+
+                        <span class="px-4 py-2 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">
+
+                            {{ tech }}
+
+                        </span>
+
+                        {% endfor %}
+
+
+
+                    {% else %}
+
+
+                        {% for tech in project.technologies %}
+
+                        <span class="px-4 py-2 rounded-full bg-blue-100 text-blue-700">
+
+                            {{ tech }}
+
+                        </span>
+
+                        {% endfor %}
+
+
+
+                    {% endif %}
+
+
+
+                </div>
+
+
+            </section>
+
+            {% endif %}
+
+
+
+
+
+
+
+
+
+
+            <!-- Screenshots -->
+
+
+            {% if project.screenshots %}
+
+
+            <section>
+
+
+                <h2 class="text-2xl font-bold mb-5">
+                    📸 Screenshots
+                </h2>
+
+
+
+                <div class="grid md:grid-cols-2 gap-5">
+
+
+                    {% for shot in project.screenshots %}
+
+                    <img src="{{ shot }}"
+                         class="rounded-2xl shadow-lg hover:scale-105 transition">
+
+
+                    {% endfor %}
+
+
+                </div>
+
+
+            </section>
+
+
+            {% endif %}
+
+
+
+
+
+
+
+
+
+            <!-- Video -->
+
+
+            {% if project.video_url %}
+
+
+            <section>
+
+
+                <h2 class="text-2xl font-bold mb-5">
+                    🎥 Demo
+                </h2>
+
+
+                <div class="aspect-video rounded-3xl overflow-hidden shadow-xl">
+
+                    <iframe src="{{ project.video_url }}"
+                            class="w-full h-full"
+                            allowfullscreen>
+                    </iframe>
+
+                </div>
+
+
+            </section>
+
+
+            {% endif %}
+
+
+
+        </main>
+
+
+
+
+
+
+
+
+
+        <!-- SIDEBAR -->
+
+
+        <aside class="space-y-6 lg:sticky lg:top-24 h-fit">
+
+
+
+
+
+            <!-- Owner -->
+
+
+            <div class="bg-white dark:bg-slate-800 rounded-3xl shadow border p-6">
+
+
+                <h3 class="font-bold text-lg mb-5">
+                    👨‍💻 Developer
+                </h3>
+
+
+                <div class="flex items-center gap-4">
+
+
+                    {% if project.owner.avatar %}
+
+                    <img src="{{ project.owner.avatar.url }}"
+                         class="w-14 h-14 rounded-full object-cover">
+
+                    {% endif %}
+
+
+
+                    <div>
+
+                        <a href="{% url 'profiles:detail' project.owner.username %}"
+                           class="font-bold hover:text-blue-600">
+
+                            {{ project.owner.display_name|default:project.owner.username }}
+
+                        </a>
+
+
+                        <p class="text-sm text-slate-500">
+                            @{{ project.owner.username }}
+                        </p>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <!-- Links -->
+
+
+            <div class="bg-white dark:bg-slate-800 rounded-3xl shadow border p-6">
+
+
+                <h3 class="font-bold text-lg mb-5">
+                    🔗 Links
+                </h3>
+
+
+
+                <div class="space-y-3">
+
+
+                    {% if project.github_url %}
+
+                    <a href="{{ project.github_url }}"
+                       target="_blank"
+                       class="block text-center bg-slate-900 text-white rounded-xl py-3 hover:opacity-90">
+
+                        GitHub
+
+                    </a>
+
+                    {% endif %}
+
+
+
+                    {% if project.live_demo_url %}
+
+                    <a href="{{ project.live_demo_url }}"
+                       target="_blank"
+                       class="block text-center bg-emerald-600 text-white rounded-xl py-3">
+
+                        Live Demo
+
+                    </a>
+
+                    {% endif %}
+
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+
+
+
+
+            <!-- Details -->
+
+
+            <div class="bg-white dark:bg-slate-800 rounded-3xl shadow border p-6">
+
+
+                <h3 class="font-bold text-lg mb-5">
+                    📌 Details
+                </h3>
+
+
+                <div class="space-y-3 text-sm">
+
+
+                    <p>
+                        <b>Status:</b>
+                        {{ project.get_status_display }}
+                    </p>
+
+
+                    <p>
+                        <b>Version:</b>
+                        {{ project.version|default:"-" }}
+                    </p>
+
+
+                    <p>
+                        <b>Created:</b>
+                        {{ project.created_at|date:"M d, Y" }}
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+        </aside>
+
+
+
     </div>
-    {% if project.github_url %}
-    <a href="{{ project.github_url }}" target="_blank" class="inline-flex items-center mt-6 bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-700">
-        View on GitHub
-    </a>
-    {% endif %}
+
+
+
 </div>
+
+
 {% endblock %}

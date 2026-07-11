@@ -3,7 +3,7 @@ Development settings for ZimTechHub
 """
 from .base import *
 
-DEBUG = False  # Set to True for development, False for production
+DEBUG = True  # Set to True for development, False for production
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
 

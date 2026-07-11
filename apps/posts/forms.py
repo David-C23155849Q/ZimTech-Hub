@@ -4,12 +4,27 @@ from .models import Post, PostImage, PollOption
 
 class PostForm(forms.ModelForm):
 
+    # Hashtags field
+    tags = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder": "Add hashtags e.g python django coding",
+                "class": "w-full rounded-xl border px-4 py-3"
+            }
+        ),
+        help_text="Separate hashtags with spaces"
+    )
+
+
     class Meta:
+
         model = Post
 
         fields = [
             "title",
             "content",
+            "tags",
             "post_type",
             "video",
             "code_snippet",
@@ -19,6 +34,7 @@ class PostForm(forms.ModelForm):
             "link_description",
             "link_image",
         ]
+
 
         widgets = {
 
@@ -32,7 +48,7 @@ class PostForm(forms.ModelForm):
 
             "content": forms.Textarea(
                 attrs={
-                    "placeholder": "Share something with the community...",
+                    "placeholder": "Share something with the community... Use @username to mention someone",
                     "rows": 6,
                     "class": "w-full rounded-xl border px-4 py-3"
                 }
@@ -48,7 +64,8 @@ class PostForm(forms.ModelForm):
 
             "video": forms.FileInput(
                 attrs={
-                    "class": "w-full rounded-xl border px-4 py-3"
+                    "class": "w-full rounded-xl border px-4 py-3",
+                    "accept": "video/*"
                 }
             ),
 
@@ -105,6 +122,31 @@ class PostForm(forms.ModelForm):
         }
 
 
+
+    def clean_tags(self):
+
+        tags = self.cleaned_data.get("tags")
+
+        if not tags:
+            return []
+
+
+        # Convert:
+        # python django coding
+        #
+        # into:
+        # ["python", "django", "coding"]
+
+        tags = tags.replace("#", "")
+
+        return [
+            tag.strip()
+            for tag in tags.split()
+            if tag.strip()
+        ]
+
+
+
     def clean(self):
 
         cleaned_data = super().clean()
@@ -112,7 +154,6 @@ class PostForm(forms.ModelForm):
         post_type = cleaned_data.get("post_type")
 
 
-        # Require code fields
         if post_type == Post.PostType.CODE:
 
             if not cleaned_data.get("code_snippet"):
@@ -129,8 +170,6 @@ class PostForm(forms.ModelForm):
                 )
 
 
-        # Require video
-
         if post_type == Post.PostType.VIDEO:
 
             if not cleaned_data.get("video"):
@@ -139,8 +178,6 @@ class PostForm(forms.ModelForm):
                     "Please upload a video."
                 )
 
-
-        # Require link
 
         if post_type == Post.PostType.LINK:
 
@@ -156,7 +193,9 @@ class PostForm(forms.ModelForm):
 
 
 class MultipleFileInput(forms.ClearableFileInput):
+
     allow_multiple_selected = True
+
 
 
 class PostImageForm(forms.ModelForm):
@@ -175,10 +214,12 @@ class PostImageForm(forms.ModelForm):
                 attrs={
                     "class": "w-full rounded-xl border px-4 py-3",
                     "accept": "image/*",
+                    "multiple": True
                 }
             )
 
         }
+
 
 
 class PollOptionForm(forms.ModelForm):
@@ -190,6 +231,7 @@ class PollOptionForm(forms.ModelForm):
         fields = [
             "text"
         ]
+
 
         widgets = {
 

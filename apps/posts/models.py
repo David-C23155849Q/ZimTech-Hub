@@ -1,6 +1,9 @@
+# posts/models.py
 from django.db import models
 from django.conf import settings
 import uuid
+from taggit.managers import TaggableManager
+from django.utils.text import slugify
 
 
 class Post(models.Model):
@@ -43,6 +46,7 @@ class Post(models.Model):
         choices=PostType.choices,
         default=PostType.TEXT
     )
+
 
 
     # Video upload
@@ -88,15 +92,9 @@ class Post(models.Model):
 
 
     # Hashtags
-    hashtags = models.JSONField(
-        default=list,
-        blank=True
-    )
-
-
-    mentions = models.JSONField(
-        default=list,
-        blank=True
+    tags = TaggableManager(
+        blank=True,
+        help_text="Add hashtags like python, django, coding"
     )
 
 
@@ -147,11 +145,83 @@ class Post(models.Model):
             "-created_at"
         ]
 
+        indexes = [
+            models.Index(fields=["created_at"]),
+            models.Index(fields=["post_type"]),
+            models.Index(fields=["author"]),
+            models.Index(fields=["is_published"]),
+        ]
+
+
+    slug = models.SlugField(
+    max_length=350,
+    unique=True,
+    blank=True,
+    null=True
+)
+
+
+    def save(self, *args, **kwargs):
+
+        if not self.slug:
+
+            base_slug = slugify(
+                self.title if self.title else str(self.id)
+            )
+
+            slug = base_slug
+            counter = 1
+
+
+            while Post.objects.filter(slug=slug).exists():
+
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+
+
+            self.slug = slug
+
+
+        super().save(*args, **kwargs)
+
+
 
     def __str__(self):
+
         return f"{self.author.username} - {self.title}"
+    
+# Mentions model to track which users are mentioned in a post
+
+class PostMention(models.Model):
+
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        related_name="mentions"
+    )
 
 
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="mentions"
+    )
+
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+
+    class Meta:
+        unique_together = [
+            "post",
+            "user"
+        ]
+
+
+    def __str__(self):
+        return f"{self.user.username} mentioned in {self.post.id}"
 
 # Multiple images per post
 
@@ -176,7 +246,6 @@ class PostImage(models.Model):
 
     def __str__(self):
         return f"Image for {self.post}"
-
 
 
 # Poll choices
@@ -225,7 +294,88 @@ class PollVote(models.Model):
 
 
     class Meta:
+
+        constraints = [
+            models.UniqueConstraint(
+                fields=[
+                    "user",
+                    "option"
+                ],
+                name="unique_user_option_vote"
+            )
+        ]
+
+class PostLike(models.Model):
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+
+    post = models.ForeignKey(
+        Post,
+        related_name="likes",
+        on_delete=models.CASCADE
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+
+    class Meta:
         unique_together = [
             "user",
-            "option"
+            "post"
         ]
+
+class Comment(models.Model):
+
+    post = models.ForeignKey(
+        Post,
+        related_name="comments",
+        on_delete=models.CASCADE
+    )
+
+
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+
+
+    content = models.TextField()
+
+
+    parent = models.ForeignKey(
+        "self",
+        null=True,
+        blank=True,
+        related_name="replies",
+        on_delete=models.CASCADE
+    )
+
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+
+class PostEditHistory(models.Model):
+
+    post = models.ForeignKey(
+        Post,
+        related_name="edit_history",
+        on_delete=models.CASCADE
+    )
+
+    old_content = models.TextField()
+
+    edited_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
+
+    edited_at = models.DateTimeField(
+        auto_now_add=True
+    )
