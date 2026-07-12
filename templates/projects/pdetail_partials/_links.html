@@ -1,0 +1,49 @@
+<div class="bg-white dark:bg-slate-800 rounded-3xl shadow border border-slate-200 dark:border-slate-700 p-6">
+
+    <h3 class="text-xl font-bold mb-5">
+
+        🔗 Project Links
+
+    </h3>
+
+    <div class="space-y-3">
+
+        {% if project.github_url %}
+
+            <a href="{{ project.github_url }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="block w-full text-center rounded-xl bg-slate-900 text-white py-3 font-semibold hover:opacity-90 transition">
+
+                GitHub Repository
+
+            </a>
+
+        {% endif %}
+
+        {% if project.live_demo_url %}
+
+            <a href="{{ project.live_demo_url }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="block w-full text-center rounded-xl bg-emerald-600 text-white py-3 font-semibold hover:bg-emerald-700 transition">
+
+                Live Demo
+
+            </a>
+
+        {% endif %}
+
+        {% if not project.github_url and not project.live_demo_url %}
+
+            <p class="text-sm text-slate-500">
+
+                No external links available.
+
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>

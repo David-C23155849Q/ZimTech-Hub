@@ -1,0 +1,23 @@
+{% if project.video_url %}
+
+<section>
+
+    <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+
+        🎥 Demo Video
+
+    </h2>
+
+    <div class="aspect-video overflow-hidden rounded-3xl shadow-xl border border-slate-200 dark:border-slate-700">
+
+        <iframe
+            src="{{ project.video_url }}"
+            class="w-full h-full"
+            allowfullscreen>
+        </iframe>
+
+    </div>
+
+</section>
+
+{% endif %}

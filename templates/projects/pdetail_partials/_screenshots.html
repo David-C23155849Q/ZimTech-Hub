@@ -1,0 +1,31 @@
+{% if project.screenshots %}
+
+<section>
+
+    <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+
+        📸 Screenshots
+
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+        {% for shot in project.screenshots %}
+
+            <a href="{{ shot }}" target="_blank">
+
+                <img
+                    src="{{ shot }}"
+                    alt="Screenshot"
+                    class="rounded-2xl shadow-lg hover:shadow-2xl hover:scale-[1.02] transition duration-300 w-full object-cover"
+                >
+
+            </a>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endif %}

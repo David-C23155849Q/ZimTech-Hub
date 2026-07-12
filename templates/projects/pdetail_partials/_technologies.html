@@ -1,0 +1,49 @@
+{% if project.technologies %}
+
+<section class="bg-white dark:bg-slate-800 rounded-3xl shadow border border-slate-200 dark:border-slate-700 p-8">
+
+    <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+
+        🛠 Technologies
+
+    </h2>
+
+    <div class="flex flex-wrap gap-3">
+
+        {% if project.technologies.items %}
+
+            {% for tech, value in project.technologies.items %}
+
+                <span class="px-4 py-2 rounded-full
+                             bg-blue-100 text-blue-700
+                             dark:bg-blue-900/40 dark:text-blue-300
+                             font-medium">
+
+                    {{ tech }}
+
+                </span>
+
+            {% endfor %}
+
+        {% else %}
+
+            {% for tech in project.technologies %}
+
+                <span class="px-4 py-2 rounded-full
+                             bg-blue-100 text-blue-700
+                             dark:bg-blue-900/40 dark:text-blue-300
+                             font-medium">
+
+                    {{ tech }}
+
+                </span>
+
+            {% endfor %}
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endif %}

@@ -126,41 +126,29 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         # MY PROJECTS
         # ==========================
 
+        # ==========================
+        # MY PROJECTS
+        # ==========================
 
         context["projects"] = (
             Project.objects
-            .filter(
-                owner=user
+            .filter(owner=user)
+            .select_related(
+                "owner",
+                "owner__profile",
             )
-            .prefetch_related(
-                "technologies"
-            )
-            .order_by(
-                "-created_at"
-            )[:6]
+            .order_by("-created_at")[:6]
         )
-
-
-
-
 
         # ==========================
         # MY PRODUCTS
         # ==========================
 
-
         context["products"] = (
             Product.objects
-            .filter(
-                owner=user
-            )
-            .order_by(
-                "-created_at"
-            )[:5]
+            .filter(owner=user)
+            .order_by("-created_at")[:5]
         )
-
-
-
 
 
         # ==========================

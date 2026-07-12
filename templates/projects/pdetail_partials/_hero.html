@@ -1,0 +1,27 @@
+<!-- Project Hero -->
+
+<div class="overflow-hidden rounded-3xl shadow-xl border border-slate-200 dark:border-slate-700">
+
+    {% if project.thumbnail %}
+
+        <img
+            src="{{ project.thumbnail.url }}"
+            alt="{{ project.title }}"
+            class="w-full h-[420px] object-cover"
+        >
+
+    {% else %}
+
+        <div class="h-[420px] bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 flex items-center justify-center">
+
+            <span class="text-8xl font-black text-white">
+
+                {{ project.title|first|upper }}
+
+            </span>
+
+        </div>
+
+    {% endif %}
+
+</div>

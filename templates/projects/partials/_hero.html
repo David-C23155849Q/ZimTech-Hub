@@ -1,0 +1,63 @@
+<section class="relative overflow-hidden rounded-3xl mb-10
+                bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700
+                p-8 sm:p-12 text-white shadow-xl">
+
+    <div class="relative z-10">
+
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+
+            <div>
+
+                <div class="flex items-center gap-4 mb-4">
+
+                    <div class="p-4 rounded-2xl bg-white/20 backdrop-blur">
+                        🚀
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl font-extrabold">
+                        Developer Projects
+                    </h1>
+
+                </div>
+
+                <p class="max-w-2xl text-blue-100 text-lg">
+                    Discover innovative software, websites, mobile apps and
+                    open-source projects created by Zimbabwean developers.
+                </p>
+
+                <div class="flex gap-6 mt-6">
+
+                    <div>
+                        <p class="text-3xl font-bold">{{ projects.count }}</p>
+                        <p class="text-blue-200 text-sm">Projects</p>
+                    </div>
+
+                    <div>
+                        <p class="text-3xl font-bold">🇿🇼</p>
+                        <p class="text-blue-200 text-sm">Local Developers</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% if user.is_authenticated %}
+            <a href="{% url 'projects:create' %}"
+               class="inline-flex items-center justify-center gap-2
+                      bg-white text-blue-700 px-7 py-4 rounded-2xl
+                      font-bold shadow-lg hover:scale-105 transition">
+
+                ➕ Share Project
+
+            </a>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <div class="absolute -right-20 -bottom-20 w-80 h-80
+                bg-white/10 rounded-full blur-3xl">
+    </div>
+
+</section>

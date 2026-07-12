@@ -1,0 +1,39 @@
+<!-- Project Header -->
+
+<section>
+
+    <div class="flex flex-wrap items-center gap-3 mb-5">
+
+        <span class="px-4 py-1 rounded-full text-sm font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">
+
+            {{ project.get_status_display }}
+
+        </span>
+
+        {% if project.version %}
+        <span class="px-4 py-1 rounded-full text-sm font-semibold bg-slate-100 dark:bg-slate-700">
+
+            v{{ project.version }}
+
+        </span>
+        {% endif %}
+
+    </div>
+
+    <h1 class="text-4xl md:text-5xl font-black text-slate-900 dark:text-white">
+
+        {{ project.title }}
+
+    </h1>
+
+    {% if project.description %}
+
+    <p class="mt-5 text-lg leading-relaxed text-slate-600 dark:text-slate-400">
+
+        {{ project.description }}
+
+    </p>
+
+    {% endif %}
+
+</section>
