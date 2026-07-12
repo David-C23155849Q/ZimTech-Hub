@@ -83,34 +83,59 @@
         <!-- Footer -->
         <div class="flex items-center justify-between mt-6 pt-5 border-t border-slate-200 dark:border-slate-800">
 
-            <div class="flex items-center gap-3">
+    <div class="flex items-center gap-3">
 
-                <img src="{{ project.author.profile.avatar.url }}"
-                     class="w-10 h-10 rounded-full object-cover">
+        {% if project.owner.profile.avatar %}
 
-                <div>
+            <img 
+                src="{{ project.owner.profile.avatar.url }}"
+                alt="{{ project.owner.username }}"
+                class="w-10 h-10 rounded-full object-cover">
 
-                    <p class="font-medium text-slate-900 dark:text-white">
-                        {{ project.author.username }}
-                    </p>
+        {% else %}
 
-                    <p class="text-xs text-slate-500">
-                        {{ project.author.profile.title }}
-                    </p>
-
-                </div>
-
+            <div class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">
+                {{ project.owner.username|first|upper }}
             </div>
 
-            {% if project.slug %}
-            <a href="{% url 'projects:detail' project.slug %}"
-               class="inline-flex items-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-sm font-medium transition">
-                View
-                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        {% endif %}
+
+
+        <div>
+
+            <a href="{% url 'profiles:detail' project.owner.username %}"
+               class="font-medium text-slate-900 dark:text-white hover:text-blue-600 transition">
+
+                {{ project.owner.display_name|default:project.owner.username }}
+
             </a>
-            {% endif %}
+
+
+            <p class="text-xs text-slate-500">
+
+                {{ project.owner.profile.headline|default:"Developer" }}
+
+            </p>
 
         </div>
+
+    </div>
+
+
+    {% if project.slug %}
+
+    <a href="{% url 'projects:detail' project.slug %}"
+       class="inline-flex items-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 text-sm font-medium transition">
+
+        View
+
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+
+    </a>
+
+    {% endif %}
+
+</div>
 
     </div>
 

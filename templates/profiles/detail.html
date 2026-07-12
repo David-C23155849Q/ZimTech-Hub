@@ -1,35 +1,667 @@
-{% extends 'base.html' %}
-{% block title %}{{ profile.user.username }} - ZimTechHub{% endblock %}
+{% extends "base.html" %}
+
+{% block title %}{{ profile.user.username }} • ZimTechHub{% endblock %}
+
 {% block content %}
-<div class="max-w-6xl mx-auto px-4 py-8">
-    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
-        <div class="h-48 bg-gradient-to-r from-primary to-secondary relative">
-            {% if profile.cover_image %}
-            <img src="{{ profile.cover_image.url }}" class="w-full h-full object-cover">
-            {% endif %}
-        </div>
-        <div class="px-8 pb-8">
-            <div class="relative -mt-16 mb-4">
-                <img src="{{ profile.avatar.url|default:'/static/images/default-avatar.png' }}" class="w-32 h-32 rounded-full border-4 border-white dark:border-gray-800">
-            </div>
-            <div class="flex justify-between items-start">
-                <div>
-                    <h1 class="text-2xl font-bold">{{ profile.user.display_name }}</h1>
-                    <p class="text-gray-600 dark:text-gray-400">@{{ profile.user.username }}</p>
-                    {% if profile.headline %}<p class="text-gray-700 dark:text-gray-300 mt-2">{{ profile.headline }}</p>{% endif %}
-                </div>
-                {% if user == profile.user %}
-                <a href="{% url 'profiles:edit' profile.user.username %}" class="bg-primary text-white px-4 py-2 rounded-lg">Edit Profile</a>
-                {% endif %}
-            </div>
-            <div class="mt-6 flex space-x-6">
-                <span><strong>{{ profile.follower_count }}</strong> Followers</span>
-                <span><strong>{{ profile.following_count }}</strong> Following</span>
-                <span><strong>{{ profile.project_count }}</strong> Projects</span>
-                <span><strong>{{ profile.product_count }}</strong> Products</span>
-            </div>
-            {% if profile.bio %}<p class="mt-4 text-gray-700 dark:text-gray-300">{{ profile.bio }}</p>{% endif %}
-        </div>
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+    <!-- ================= Cover ================= -->
+    <div class="relative overflow-hidden rounded-3xl shadow-2xl">
+
+        {% if profile.cover_image %}
+            <img
+                src="{{ profile.cover_image.url }}"
+                alt="Cover"
+                class="w-full h-72 md:h-80 object-cover">
+        {% else %}
+            <div class="h-72 md:h-80 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700"></div>
+        {% endif %}
+
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+
     </div>
+
+    <!-- ================= Profile Card ================= -->
+    <div class="relative -mt-24 z-10">
+
+        <div class="bg-white/95 dark:bg-slate-900/95 backdrop-blur rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl p-8">
+
+            <div class="flex flex-col xl:flex-row justify-between gap-10">
+
+                <!-- Left -->
+                <div class="flex flex-col md:flex-row gap-8">
+
+                    <!-- Avatar -->
+                    <div class="relative flex-shrink-0">
+
+                        {% if profile.avatar %}
+
+                            <img
+                                src="{{ profile.avatar.url }}"
+                                alt="{{ profile.user.username }}"
+                                class="w-40 h-40 rounded-full object-cover border-4 border-white dark:border-slate-900 shadow-2xl">
+
+                        {% else %}
+
+                            <div class="w-40 h-40 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white text-6xl font-bold flex items-center justify-center border-4 border-white dark:border-slate-900 shadow-2xl">
+
+                                {{ profile.user.username|first|upper }}
+
+                            </div>
+
+                        {% endif %}
+
+                        <!-- Online Indicator -->
+                        <span class="absolute bottom-4 right-3 w-6 h-6 rounded-full bg-green-500 border-4 border-white dark:border-slate-900"></span>
+
+                    </div>
+
+                    <!-- User Info -->
+                    <div class="flex-1">
+
+                        <!-- Name -->
+                        <div class="flex flex-wrap items-center gap-3">
+
+                            <h1 class="text-4xl font-extrabold text-slate-900 dark:text-white">
+
+                                {{ profile.user.display_name|default:profile.user.username }}
+
+                            </h1>
+
+                            {% if profile.verification_status == "verified" %}
+
+                                <span class="inline-flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 p-1.5">
+
+                                    <i
+                                        data-lucide="badge-check"
+                                        class="w-5 h-5 text-blue-600">
+                                    </i>
+
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                        <!-- Username -->
+                        <div class="mt-2 flex items-center gap-2 text-slate-500">
+
+                            <i data-lucide="at-sign" class="w-4 h-4"></i>
+
+                            <span>@{{ profile.user.username }}</span>
+
+                        </div>
+
+                        <!-- Headline -->
+                        {% if profile.headline %}
+
+                            <p class="mt-5 text-xl font-medium text-slate-700 dark:text-slate-300">
+
+                                {{ profile.headline }}
+
+                            </p>
+
+                        {% endif %}
+
+                        <!-- Bio -->
+                        {% if profile.bio %}
+
+                            <p class="mt-5 text-slate-600 dark:text-slate-400 leading-8 max-w-4xl">
+
+                                {{ profile.bio }}
+
+                            </p>
+
+                        {% endif %}
+
+                        <!-- Info Pills -->
+                        <div class="flex flex-wrap gap-3 mt-7">
+
+                            {% if profile.city %}
+
+                            <div class="inline-flex items-center gap-2 rounded-full bg-slate-100 dark:bg-slate-800 px-4 py-2">
+
+                                <i
+                                    data-lucide="map-pin"
+                                    class="w-4 h-4 text-blue-600">
+                                </i>
+
+                                <span class="text-sm text-slate-600 dark:text-slate-300">
+
+                                    {{ profile.city }}, {{ profile.country }}
+
+                                </span>
+
+                            </div>
+
+                            {% endif %}
+
+                            <div class="inline-flex items-center gap-2 rounded-full bg-green-50 dark:bg-green-900/20 px-4 py-2">
+
+                                <i
+                                    data-lucide="circle-check-big"
+                                    class="w-4 h-4 text-green-600">
+                                </i>
+
+                                <span class="text-sm font-medium text-green-700 dark:text-green-400">
+
+                                    {{ profile.get_availability_display }}
+
+                                </span>
+
+                            </div>
+
+                            <div class="inline-flex items-center gap-2 rounded-full bg-yellow-50 dark:bg-yellow-900/20 px-4 py-2">
+
+                                <i
+                                    data-lucide="star"
+                                    class="w-4 h-4 text-yellow-500 fill-yellow-500">
+                                </i>
+
+                                <span class="text-sm font-medium text-yellow-700 dark:text-yellow-400">
+
+                                    {{ profile.reputation_score }} Reputation
+
+                                </span>
+
+                            </div>
+
+                            <div class="inline-flex items-center gap-2 rounded-full bg-indigo-50 dark:bg-indigo-900/20 px-4 py-2">
+
+                                <i
+                                    data-lucide="calendar-days"
+                                    class="w-4 h-4 text-indigo-600">
+                                </i>
+
+                                <span class="text-sm text-indigo-700 dark:text-indigo-300">
+
+                                    Joined {{ profile.user.date_joined|date:"F Y" }}
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Right -->
+                <div class="flex flex-col gap-4">
+
+                    {% if request.user == profile.user %}
+
+                    <a
+                        href="{% url 'profiles:edit' profile.user.username %}"
+                        class="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 px-7 py-3.5 text-white font-semibold shadow-lg shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1">
+
+                        <i data-lucide="square-pen" class="w-5 h-5"></i>
+
+                        Edit Profile
+
+                    </a>
+
+                    {% else %}
+
+                    <button
+                        class="inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 px-7 py-3.5 text-white font-semibold shadow-lg shadow-blue-500/30 transition-all duration-300 hover:-translate-y-1">
+
+                        <i data-lucide="user-plus" class="w-5 h-5"></i>
+
+                        Follow
+
+                    </button>
+
+                    <button
+                        class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-blue-500 px-7 py-3.5 font-semibold transition">
+
+                        <i data-lucide="message-circle" class="w-5 h-5"></i>
+
+                        Message
+
+                    </button>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= Statistics ================= -->
+
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+
+        <!-- Followers -->
+        <div class="group rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+
+            <div class="flex justify-between items-center">
+
+                <div>
+
+                    <h3 class="text-3xl font-bold text-slate-900 dark:text-white">
+
+                        {{ profile.follower_count }}
+
+                    </h3>
+
+                    <p class="text-slate-500 mt-1">
+
+                        Followers
+
+                    </p>
+
+                </div>
+
+                <div class="rounded-xl bg-blue-100 dark:bg-blue-900/20 p-3">
+
+                    <i
+                        data-lucide="users"
+                        class="w-6 h-6 text-blue-600">
+                    </i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Following -->
+        <div class="group rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+
+            <div class="flex justify-between items-center">
+
+                <div>
+
+                    <h3 class="text-3xl font-bold text-slate-900 dark:text-white">
+
+                        {{ profile.following_count }}
+
+                    </h3>
+
+                    <p class="text-slate-500 mt-1">
+
+                        Following
+
+                    </p>
+
+                </div>
+
+                <div class="rounded-xl bg-green-100 dark:bg-green-900/20 p-3">
+
+                    <i
+                        data-lucide="user-plus"
+                        class="w-6 h-6 text-green-600">
+                    </i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Projects -->
+        <div class="group rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+
+            <div class="flex justify-between items-center">
+
+                <div>
+
+                    <h3 class="text-3xl font-bold text-slate-900 dark:text-white">
+
+                        {{ profile.project_count }}
+
+                    </h3>
+
+                    <p class="text-slate-500 mt-1">
+
+                        Projects
+
+                    </p>
+
+                </div>
+
+                <div class="rounded-xl bg-purple-100 dark:bg-purple-900/20 p-3">
+
+                    <i
+                        data-lucide="folder-code"
+                        class="w-6 h-6 text-purple-600">
+                    </i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Products -->
+        <div class="group rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+
+            <div class="flex justify-between items-center">
+
+                <div>
+
+                    <h3 class="text-3xl font-bold text-slate-900 dark:text-white">
+
+                        {{ profile.product_count }}
+
+                    </h3>
+
+                    <p class="text-slate-500 mt-1">
+
+                        Products
+
+                    </p>
+
+                </div>
+
+                <div class="rounded-xl bg-orange-100 dark:bg-orange-900/20 p-3">
+
+                    <i
+                        data-lucide="package"
+                        class="w-6 h-6 text-orange-600">
+                    </i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= Links Section ================= -->
+
+        <div class="mt-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between px-8 py-6 border-b border-slate-200 dark:border-slate-800">
+
+            <div>
+
+                <h2 class="flex items-center gap-3 text-2xl font-bold text-slate-900 dark:text-white">
+
+                    <div class="rounded-xl bg-blue-100 dark:bg-blue-900/30 p-2">
+
+                        <i data-lucide="link-2"
+                           class="w-6 h-6 text-blue-600"></i>
+
+                    </div>
+
+                    Links
+
+                </h2>
+
+                <p class="mt-2 text-slate-500">
+
+                    Connect with {{ profile.user.display_name|default:profile.user.username }} around the web.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Links Grid -->
+        <div class="p-8">
+
+            <div class="grid md:grid-cols-2 gap-5">
+
+                {% if profile.github_url %}
+
+                <a href="{{ profile.github_url }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="group flex items-center justify-between rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 hover:border-slate-900 dark:hover:border-white hover:shadow-lg transition-all duration-300">
+
+                    <div class="flex items-center gap-4">
+
+                        <div class="rounded-xl bg-slate-100 dark:bg-slate-800 p-3">
+
+                            <i data-lucide="github"
+                               class="w-6 h-6"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h3 class="font-semibold text-slate-900 dark:text-white">
+
+                                GitHub
+
+                            </h3>
+
+                            <p class="text-sm text-slate-500">
+
+                                View repositories
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <i data-lucide="arrow-up-right"
+                       class="w-5 h-5 text-slate-400 group-hover:text-blue-600 transition"></i>
+
+                </a>
+
+                {% endif %}
+
+
+                {% if profile.linkedin_url %}
+
+                <a href="{{ profile.linkedin_url }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="group flex items-center justify-between rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 hover:border-blue-600 hover:shadow-lg transition-all duration-300">
+
+                    <div class="flex items-center gap-4">
+
+                        <div class="rounded-xl bg-blue-100 dark:bg-blue-900/30 p-3">
+
+                            <i data-lucide="briefcase-business"
+                               class="w-6 h-6 text-blue-600"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h3 class="font-semibold text-slate-900 dark:text-white">
+
+                                LinkedIn
+
+                            </h3>
+
+                            <p class="text-sm text-slate-500">
+
+                                Professional profile
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <i data-lucide="arrow-up-right"
+                       class="w-5 h-5 text-slate-400 group-hover:text-blue-600 transition"></i>
+
+                </a>
+
+                {% endif %}
+
+
+                {% if profile.portfolio_url %}
+
+                <a href="{{ profile.portfolio_url }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="group flex items-center justify-between rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 hover:border-purple-600 hover:shadow-lg transition-all duration-300">
+
+                    <div class="flex items-center gap-4">
+
+                        <div class="rounded-xl bg-purple-100 dark:bg-purple-900/30 p-3">
+
+                            <i data-lucide="layout-dashboard"
+                               class="w-6 h-6 text-purple-600"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h3 class="font-semibold text-slate-900 dark:text-white">
+
+                                Portfolio
+
+                            </h3>
+
+                            <p class="text-sm text-slate-500">
+
+                                Personal projects & work
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <i data-lucide="arrow-up-right"
+                       class="w-5 h-5 text-slate-400 group-hover:text-purple-600 transition"></i>
+
+                </a>
+
+                {% endif %}
+
+
+                {% if profile.website_url %}
+
+                <a href="{{ profile.website_url }}"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="group flex items-center justify-between rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 hover:border-green-600 hover:shadow-lg transition-all duration-300">
+
+                    <div class="flex items-center gap-4">
+
+                        <div class="rounded-xl bg-green-100 dark:bg-green-900/30 p-3">
+
+                            <i data-lucide="globe"
+                               class="w-6 h-6 text-green-600"></i>
+
+                        </div>
+
+                        <div>
+
+                            <h3 class="font-semibold text-slate-900 dark:text-white">
+
+                                Website
+
+                            </h3>
+
+                            <p class="text-sm text-slate-500">
+
+                                Visit website
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <i data-lucide="arrow-up-right"
+                       class="w-5 h-5 text-slate-400 group-hover:text-green-600 transition"></i>
+
+                </a>
+
+                {% endif %}
+
+            </div>
+
+            {% if not profile.github_url and not profile.linkedin_url and not profile.portfolio_url and not profile.website_url %}
+
+            <div class="py-16 text-center">
+
+                <div class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800">
+
+                    <i data-lucide="link-2"
+                       class="w-10 h-10 text-slate-400"></i>
+
+                </div>
+
+                <h3 class="mt-6 text-xl font-semibold text-slate-900 dark:text-white">
+
+                    No links added
+
+                </h3>
+
+                <p class="mt-2 text-slate-500">
+
+                    {% if request.user == profile.user %}
+                        Add your GitHub, LinkedIn, portfolio, or website to help others discover your work.
+                    {% else %}
+                        This user hasn't shared any external links yet.
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <!-- Social Icons -->
+    {% if profile.github_url or profile.linkedin_url or profile.portfolio_url or profile.website_url %}
+
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+
+        {% if profile.github_url %}
+        <a href="{{ profile.github_url }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-900 hover:text-white transition-all duration-300">
+            <i data-lucide="github" class="w-5 h-5"></i>
+        </a>
+        {% endif %}
+
+        {% if profile.linkedin_url %}
+        <a href="{{ profile.linkedin_url }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 dark:bg-blue-900/30 hover:bg-blue-600 hover:text-white transition-all duration-300">
+            <i data-lucide="briefcase-business" class="w-5 h-5"></i>
+        </a>
+        {% endif %}
+
+        {% if profile.portfolio_url %}
+        <a href="{{ profile.portfolio_url }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-100 dark:bg-purple-900/30 hover:bg-purple-600 hover:text-white transition-all duration-300">
+            <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+        </a>
+        {% endif %}
+
+        {% if profile.website_url %}
+        <a href="{{ profile.website_url }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="flex h-12 w-12 items-center justify-center rounded-xl bg-green-100 dark:bg-green-900/30 hover:bg-green-600 hover:text-white transition-all duration-300">
+            <i data-lucide="globe" class="w-5 h-5"></i>
+        </a>
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
 </div>
+
 {% endblock %}

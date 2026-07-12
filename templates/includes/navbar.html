@@ -1,210 +1,365 @@
+{% load static %}
+
 <nav
-    x-data="{ mobile:false }"
-    class="sticky top-0 z-50
-backdrop-blur-xl
-bg-white/80 dark:bg-slate-900/80
-border-b border-slate-200/70 dark:border-slate-700/70
-shadow-sm transition-all"
-    <div class="max-w-7xl mx-auto px-6">
+    x-data="{ mobile:false, profileOpen:false }"
+    class="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-slate-900/80 border-b border-slate-200/70 dark:border-slate-700/70 shadow-sm transition-all">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- ======================= TOP BAR ======================= -->
 
         <div class="flex h-16 items-center justify-between">
 
-            <!-- Logo -->
-            <a href="{% url 'core:home' %}" class="flex items-center gap-3 group">
+            <!-- ================= Logo ================= -->
 
-    <div class="relative flex h-11 w-11 items-center justify-center
-        rounded-2xl
-        bg-gradient-to-br
-        from-blue-500
-        via-indigo-600
-        to-purple-600
-        shadow-lg shadow-blue-500/25
-        group-hover:scale-105 transition">
+            <a href="{% url 'core:home' %}"
+               class="flex items-center gap-3 group shrink-0">
 
-        <span class="text-white text-lg font-black">
-            Z
-        </span>
+                <div
+                    class="relative flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-600 shadow-lg shadow-blue-500/20 transition-transform duration-300 group-hover:scale-105">
 
-        <span class="absolute -bottom-1 -right-1
-            h-3 w-3 rounded-full
-            bg-green-400 border-2 border-white dark:border-slate-900">
-        </span>
+                    <span class="text-lg font-black text-white">
 
-    </div>
+                        Z
 
-    <div class="hidden sm:block">
+                    </span>
 
-        <h1 class="font-black text-xl text-slate-900 dark:text-white">
-            ZimTechHub
-        </h1>
+                    <span
+                        class="absolute -bottom-1 -right-1 h-3 w-3 rounded-full bg-green-400 border-2 border-white dark:border-slate-900">
+                    </span>
 
-        <p class="text-xs text-slate-500">
-            Zimbabwe's Tech Ecosystem
-        </p>
+                </div>
 
-    </div>
+                <div class="hidden sm:block">
 
-</a>
+                    <h1 class="text-xl font-black text-slate-900 dark:text-white">
 
-            <!-- Search -->
-            <div class="hidden xl:flex flex-1 max-w-2xl mx-8">
+                        ZimTechHub
 
-<form action="{% url 'core:search' %}" class="w-full">
+                    </h1>
 
-<div class="relative">
+                    <p class="text-xs text-slate-500">
 
-<i data-lucide="search"
-class="absolute left-4 top-3.5 w-5 h-5 text-slate-400">
-</i>
+                        Zimbabwe's Tech Ecosystem
 
-<input
-type="search"
-name="q"
-placeholder="Search developers, projects, products..."
+                    </p>
 
-class="w-full
-rounded-2xl
-bg-slate-100 dark:bg-slate-800
-border border-transparent
-focus:border-blue-500
-focus:ring-4
-focus:ring-blue-500/10
-py-3
-pl-12
-pr-20
-transition">
+                </div>
 
-<div class="absolute right-3 top-2.5">
+            </a>
 
-<span class="rounded-lg
-border border-slate-300
-dark:border-slate-700
-px-2 py-1
-text-xs text-slate-500">
+            <!-- ================= Desktop Search ================= -->
 
-⌘ K
+            <div class="hidden lg:flex flex-1 max-w-2xl mx-8">
 
-</span>
+                <form
+                    action="{% url 'core:search' %}"
+                    class="w-full">
 
-</div>
+                    <div class="relative">
 
-</div>
+                        <i
+                            data-lucide="search"
+                            class="absolute left-4 top-3.5 w-5 h-5 text-slate-400">
+                        </i>
 
-</form>
+                        <input
+                            type="search"
+                            name="q"
+                            placeholder="Search developers, startups, projects..."
+                            class="w-full rounded-2xl bg-slate-100 dark:bg-slate-800 border border-transparent focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 py-3 pl-12 pr-24 transition-all">
 
-</div>
+                        <div class="absolute right-3 top-2.5 hidden xl:flex">
 
-            <!-- Navigation -->
-            <div class="hidden md:flex items-center space-x-2">
+                            <span
+                                class="rounded-lg border border-slate-300 dark:border-slate-700 px-2 py-1 text-xs text-slate-500">
 
-                <a href="{% url 'products:list' %}"
-                   class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-blue-600 dark:text-slate-300 dark:hover:bg-slate-800">
-                    Marketplace
-                </a>
+                                ⌘ K
 
-                <a href="{% url 'projects:list' %}"
-                   class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-blue-600 dark:text-slate-300 dark:hover:bg-slate-800">
-                    Projects
-                </a>
+                            </span>
 
-                <a href="{% url 'jobs:job_list' %}"
-                   class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-blue-600 dark:text-slate-300 dark:hover:bg-slate-800">
-                    Jobs
-                </a>
+                        </div>
 
-                <a href="{% url 'posts:feed' %}"
-                   class="rounded-lg px-3 py-2 text-sm font-medium text-slate-600 hover:bg-slate-100 hover:text-blue-600 dark:text-slate-300 dark:hover:bg-slate-800">
-                    Community
-                </a>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <!-- ================= Right Side ================= -->
+
+            <div class="flex items-center gap-2">
+
+                <!-- Theme Toggle -->
+
+                <button
+                    class="hidden md:flex items-center justify-center h-10 w-10 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+
+                    <i
+                        data-lucide="moon"
+                        class="w-5 h-5">
+                    </i>
+
+                </button>
 
                 {% if user.is_authenticated %}
 
-                <div class="relative ml-3" x-data="{ open:false }">
+                <!-- Notifications -->
+
+                <button
+                    class="relative hidden md:flex items-center justify-center h-10 w-10 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+
+                    <i
+                        data-lucide="bell"
+                        class="w-5 h-5">
+                    </i>
+
+                    <span
+                        class="absolute top-2 right-2 h-2.5 w-2.5 rounded-full bg-red-500">
+                    </span>
+
+                </button>
+
+                {% endif %}
+
+                <!-- Mobile Menu Button -->
+
+                <button
+                    @click="mobile=!mobile"
+                    class="lg:hidden flex h-10 w-10 items-center justify-center rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+
+                    <i
+                        x-show="!mobile"
+                        data-lucide="menu"
+                        class="w-6 h-6">
+                    </i>
+
+                    <i
+                        x-show="mobile"
+                        data-lucide="x"
+                        class="w-6 h-6">
+                    </i>
+
+                </button>
+
+                                <!-- ================= Desktop Navigation ================= -->
+
+                <div class="hidden lg:flex items-center gap-1 ml-2">
+
+                    <a href="{% url 'products:list' %}"
+                       class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-600 transition">
+
+                        <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+
+                        Marketplace
+
+                    </a>
+
+                    <a href="{% url 'projects:list' %}"
+                       class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-600 transition">
+
+                        <i data-lucide="folder-code" class="w-4 h-4"></i>
+
+                        Projects
+
+                    </a>
+
+                    <a href="{% url 'jobs:job_list' %}"
+                       class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-600 transition">
+
+                        <i data-lucide="briefcase-business" class="w-4 h-4"></i>
+
+                        Jobs
+
+                    </a>
+
+                    <a href="{% url 'posts:feed' %}"
+                       class="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-blue-600 transition">
+
+                        <i data-lucide="users" class="w-4 h-4"></i>
+
+                        Community
+
+                    </a>
+
+                </div>
+
+                <!-- ================= User ================= -->
+
+                {% if user.is_authenticated %}
+
+                <div class="relative hidden lg:block ml-3">
 
                     <button
-                        @click="open=!open"
-                        class="flex items-center space-x-3 rounded-xl border border-slate-200 dark:border-slate-700 px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800">
+                        @click="profileOpen = !profileOpen"
+                        class="flex items-center gap-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 hover:bg-slate-50 dark:hover:bg-slate-800 transition">
 
-                        <img
-                            src="{{ user.profile.avatar.url|default:'/static/images/default-avatar.png' }}"
-                            class="h-9 w-9 rounded-full object-cover">
+                        {% if user.profile.avatar %}
+
+                            <img
+                                src="{{ user.profile.avatar.url }}"
+                                alt="{{ user.username }}"
+                                class="h-10 w-10 rounded-full object-cover">
+
+                        {% else %}
+
+                            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold">
+
+                                {{ user.username|first|upper }}
+
+                            </div>
+
+                        {% endif %}
 
                         <div class="hidden xl:block text-left">
 
-                            <p class="text-sm font-semibold">
+                            <p class="font-semibold text-slate-900 dark:text-white">
+
                                 {{ user.first_name|default:user.username }}
+
                             </p>
 
                             <p class="text-xs text-slate-500">
+
                                 Developer
+
                             </p>
 
                         </div>
 
-                        <svg class="h-4 w-4 text-slate-500"
-                             fill="none"
-                             stroke="currentColor"
-                             viewBox="0 0 24 24">
-
-                            <path stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M19 9l-7 7-7-7"/>
-
-                        </svg>
+                        <i
+                            data-lucide="chevron-down"
+                            class="w-4 h-4 text-slate-500">
+                        </i>
 
                     </button>
 
+                    <!-- Dropdown -->
+
                     <div
-                        x-show="open"
-                        @click.away="open=false"
+                        x-show="profileOpen"
+                        @click.away="profileOpen = false"
                         x-transition
-                        class="absolute right-0 mt-3 w-56 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-xl overflow-hidden">
+                        class="absolute right-0 mt-3 w-64 overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-2xl">
 
-                        <a href="{% url 'profiles:detail' user.username %}"
-                           class="block px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-700">
-                            My Profile
-                        </a>
+                        <div class="border-b border-slate-200 dark:border-slate-700 p-5">
 
-                        <a href="{% url 'dashboard:dashboard' %}"
-                           class="block px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-700">
-                            Dashboard
-                        </a>
+                            <div class="flex items-center gap-3">
 
-                        <a href="{% url 'accounts:settings' %}"
-                           class="block px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-700">
-                            Settings
-                        </a>
+                                {% if user.profile.avatar %}
 
-                        <div class="border-t border-slate-200 dark:border-slate-700"></div>
+                                    <img
+                                        src="{{ user.profile.avatar.url }}"
+                                        class="h-12 w-12 rounded-full object-cover">
 
-                        <form method="post" action="{% url 'accounts:logout' %}">
-    {% csrf_token %}
+                                {% else %}
 
-    <button type="submit"
-            class="w-full text-left block px-4 py-3 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20">
+                                    <div class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-white font-bold">
 
-        Logout
+                                        {{ user.username|first|upper }}
 
-    </button>
+                                    </div>
 
-</form>
+                                {% endif %}
+
+                                <div>
+
+                                    <h3 class="font-semibold text-slate-900 dark:text-white">
+
+                                        {{ user.get_full_name|default:user.username }}
+
+                                    </h3>
+
+                                    <p class="text-sm text-slate-500">
+
+                                        @{{ user.username }}
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="py-2">
+
+                            <a
+                                href="{% url 'profiles:detail' user.username %}"
+                                class="flex items-center gap-3 px-5 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                                <i data-lucide="user" class="w-4 h-4"></i>
+
+                                My Profile
+
+                            </a>
+
+                            <a
+                                href="{% url 'dashboard:dashboard' %}"
+                                class="flex items-center gap-3 px-5 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                                <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+
+                                Dashboard
+
+                            </a>
+
+                            <a
+                                href="{% url 'accounts:settings' %}"
+                                class="flex items-center gap-3 px-5 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                                <i data-lucide="settings" class="w-4 h-4"></i>
+
+                                Settings
+
+                            </a>
+
+                            <div class="my-2 border-t border-slate-200 dark:border-slate-700"></div>
+
+                            <form
+                                method="post"
+                                action="{% url 'accounts:logout' %}">
+
+                                {% csrf_token %}
+
+                                <button
+                                    type="submit"
+                                    class="flex w-full items-center gap-3 px-5 py-3 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20">
+
+                                    <i data-lucide="log-out" class="w-4 h-4"></i>
+
+                                    Logout
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
                     </div>
 
                 </div>
 
                 {% else %}
 
-                <div class="flex items-center space-x-3 ml-4">
+                <!-- Guest Buttons -->
 
-                    <a href="{% url 'accounts:login' %}"
-                       class="font-medium text-slate-600 hover:text-blue-600">
+                <div class="hidden lg:flex items-center gap-3 ml-4">
+
+                    <a
+                        href="{% url 'accounts:login' %}"
+                        class="rounded-xl px-4 py-2 font-medium text-slate-600 dark:text-slate-300 hover:text-blue-600 transition">
+
                         Login
+
                     </a>
 
-                    <a href="{% url 'accounts:signup' %}"
-                       class="rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700">
+                    <a
+                        href="{% url 'accounts:signup' %}"
+                        class="rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition">
+
                         Sign Up
+
                     </a>
 
                 </div>
@@ -212,6 +367,207 @@ text-xs text-slate-500">
                 {% endif %}
 
             </div>
+
+        </div>
+
+        <!-- ================= Mobile Search ================= -->
+
+        <div class="lg:hidden pb-4">
+
+            <form action="{% url 'core:search' %}">
+
+                <div class="relative">
+
+                    <i
+                        data-lucide="search"
+                        class="absolute left-4 top-3.5 w-5 h-5 text-slate-400">
+                    </i>
+
+                    <input
+                        type="search"
+                        name="q"
+                        placeholder="Search..."
+                        class="w-full rounded-2xl bg-slate-100 dark:bg-slate-800 border border-transparent focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 py-3 pl-12 pr-4">
+
+                </div>
+
+            </form>
+
+        </div>
+
+                <!-- ================= Mobile Navigation ================= -->
+
+        <div
+            x-show="mobile"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 -translate-y-2"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-2"
+            class="lg:hidden border-t border-slate-200 dark:border-slate-700 pb-6">
+
+            <div class="space-y-2 pt-4">
+
+                <a href="{% url 'products:list' %}"
+                   class="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+
+                    <i data-lucide="shopping-bag" class="w-5 h-5 text-blue-600"></i>
+
+                    <span>Marketplace</span>
+
+                </a>
+
+                <a href="{% url 'projects:list' %}"
+                   class="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+
+                    <i data-lucide="folder-code" class="w-5 h-5 text-purple-600"></i>
+
+                    <span>Projects</span>
+
+                </a>
+
+                <a href="{% url 'jobs:job_list' %}"
+                   class="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+
+                    <i data-lucide="briefcase-business" class="w-5 h-5 text-emerald-600"></i>
+
+                    <span>Jobs</span>
+
+                </a>
+
+                <a href="{% url 'posts:feed' %}"
+                   class="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+
+                    <i data-lucide="users" class="w-5 h-5 text-orange-600"></i>
+
+                    <span>Community</span>
+
+                </a>
+
+            </div>
+
+            {% if user.is_authenticated %}
+
+            <!-- User Card -->
+
+            <div class="mt-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/50 p-4">
+
+                <div class="flex items-center gap-4">
+
+                    {% if user.profile.avatar %}
+
+                        <img src="{{ user.profile.avatar.url }}"
+                             alt="{{ user.username }}"
+                             class="h-14 w-14 rounded-full object-cover">
+
+                    {% else %}
+
+                        <div class="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 text-xl font-bold text-white">
+
+                            {{ user.username|first|upper }}
+
+                        </div>
+
+                    {% endif %}
+
+                    <div>
+
+                        <h3 class="font-semibold text-slate-900 dark:text-white">
+
+                            {{ user.get_full_name|default:user.username }}
+
+                        </h3>
+
+                        <p class="text-sm text-slate-500">
+
+                            @{{ user.username }}
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- User Menu -->
+
+            <div class="mt-4 space-y-2">
+
+                <a href="{% url 'profiles:detail' user.username %}"
+                   class="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="user" class="w-5 h-5"></i>
+
+                    My Profile
+
+                </a>
+
+                <a href="{% url 'dashboard:dashboard' %}"
+                   class="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+
+                    Dashboard
+
+                </a>
+
+                <a href="{% url 'accounts:settings' %}"
+                   class="flex items-center gap-3 rounded-xl px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">
+
+                    <i data-lucide="settings" class="w-5 h-5"></i>
+
+                    Settings
+
+                </a>
+
+                <form method="post"
+                      action="{% url 'accounts:logout' %}">
+
+                    {% csrf_token %}
+
+                    <button
+                        type="submit"
+                        class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20">
+
+                        <i data-lucide="log-out" class="w-5 h-5"></i>
+
+                        Logout
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            {% else %}
+
+            <!-- Guest Buttons -->
+
+            <div class="mt-6 space-y-3">
+
+                <a href="{% url 'accounts:login' %}"
+                   class="flex items-center justify-center rounded-xl border border-slate-300 dark:border-slate-700 px-5 py-3 font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+
+                    <i data-lucide="log-in" class="mr-2 w-5 h-5"></i>
+
+                    Login
+
+                </a>
+
+                <a href="{% url 'accounts:signup' %}"
+                   class="flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20 transition">
+
+                    <i data-lucide="user-plus" class="mr-2 w-5 h-5"></i>
+
+                    Create Account
+
+                </a>
+
+            </div>
+
+            {% endif %}
 
         </div>
 
