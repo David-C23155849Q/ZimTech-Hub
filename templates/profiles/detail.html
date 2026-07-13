@@ -660,6 +660,76 @@
 
     </div>
 
+    <div class="mt-10 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl p-8">
+
+    <div class="flex items-center justify-between mb-8">
+        <div>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+                Skills & Technologies
+            </h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                Technologies, languages and tools used.
+            </p>
+        </div>
+    </div>
+
+    <div class="space-y-8">
+
+        <!-- Skills -->
+        {% if profile.skills %}
+        <div>
+            <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-3">
+                Skills
+            </h3>
+
+            <div class="flex flex-wrap gap-3">
+                {% for skill in profile.skills %}
+                <span class="inline-flex items-center rounded-full px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-sm font-medium">
+                    {{ skill }}
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Programming Languages -->
+        {% if profile.programming_languages %}
+        <div>
+            <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-3">
+                Programming Languages
+            </h3>
+
+            <div class="flex flex-wrap gap-3">
+                {% for lang in profile.programming_languages %}
+                <span class="inline-flex items-center rounded-full px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-sm font-medium">
+                    {{ lang }}
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Frameworks -->
+        {% if profile.frameworks %}
+        <div>
+            <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-3">
+                Frameworks & Libraries
+            </h3>
+
+            <div class="flex flex-wrap gap-3">
+                {% for framework in profile.frameworks %}
+                <span class="inline-flex items-center rounded-full px-4 py-2 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-sm font-medium">
+                    {{ framework }}
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
     {% endif %}
 
 </div>

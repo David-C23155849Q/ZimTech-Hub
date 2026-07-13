@@ -1,5 +1,7 @@
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 
+from apps.accounts.models import Role
+
 
 class SocialAccountAdapter(DefaultSocialAccountAdapter):
     """
@@ -14,7 +16,10 @@ class SocialAccountAdapter(DefaultSocialAccountAdapter):
 
         user.first_name = data.get("first_name", "")
         user.last_name = data.get("last_name", "")
-        user.username = data.get("username") or data.get("email").split("@")[0]
+        user.username = (
+            data.get("username")
+            or data.get("email").split("@")[0]
+        )
 
         return user
 
@@ -24,11 +29,20 @@ class SocialAccountAdapter(DefaultSocialAccountAdapter):
         """
         user = super().save_user(request, sociallogin, form)
 
-        user.role = user.Role.USER
         user.email_verified = True
         user.is_verified = True
         user.is_online = True
 
         user.save()
+
+        # Give a default role if none exists
+        if not user.roles.exists():
+            default_role, _ = Role.objects.get_or_create(
+                name=Role.STUDENT,
+                defaults={
+                    "description": "Default role for social signups"
+                }
+            )
+            user.roles.add(default_role)
 
         return user
